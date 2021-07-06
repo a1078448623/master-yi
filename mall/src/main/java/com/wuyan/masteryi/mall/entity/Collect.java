@@ -4,10 +4,9 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class CartItem {
-    private Integer cartItemId;
+public class Collect {
+    private Integer collectId;
     private Integer userId;
     private Integer goodsId;
-    private Integer goodsNum;
-    private Date addTime;
+    private Date collectTime;
 }
