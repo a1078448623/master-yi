@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuyan.masteryi.mall.mapper.CartItemMapper">
+    <insert id="addCartItem">
+       insert into cartitem values(null, #{userId}, #{goodsId},#{goodsNum}, default)
+    </insert>
+
+    <delete id="deleteCartItemById">
+       delete from cartitem where cart_item_id = #{cartItemId}
+    </delete>
+
+    <delete id="deleteAllCartItem">
+        delete from cartitem where cart_item_id = #{cartItemId}
+    </delete>
+
+    <update id="changeGoodsNumById">
+        update cartitem set goods_num = #{goodsNum} where cart_item_id = #{cartItemId}
+    </update>
+</mapper>
