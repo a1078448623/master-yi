@@ -1,0 +1,7 @@
+/out
+/admin/target/
+/admin/src/test/
+/mall/target/
+/mall/test/
+/.idea
+*.iml
