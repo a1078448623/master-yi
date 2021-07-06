@@ -2,6 +2,6 @@
 /admin/target/
 /admin/src/test/
 /mall/target/
-/mall/test/
+/mall/src/test/
 /.idea
 *.iml
