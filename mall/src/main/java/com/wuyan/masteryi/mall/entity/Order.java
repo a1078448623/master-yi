@@ -9,4 +9,6 @@ public class Order {
     private float orderTotalPrice;
     private Integer orderStatus;
     private String createTime;
+    private String address;
+    private String orderNo;
 }

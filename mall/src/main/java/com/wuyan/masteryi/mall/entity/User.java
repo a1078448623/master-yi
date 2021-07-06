@@ -9,4 +9,5 @@ public class User {
     private String userPwd;
     private String userImgUrl;
     private String address;
+    private String phoneNum;
 }

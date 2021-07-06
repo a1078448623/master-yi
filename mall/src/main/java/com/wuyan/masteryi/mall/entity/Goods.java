@@ -11,4 +11,6 @@ public class Goods {
     private String goodsCoverUrl;
     private float goodsPrice;
     private Integer stockNum;
+    private Integer collectNum;
+    private Integer sellNum;
 }
