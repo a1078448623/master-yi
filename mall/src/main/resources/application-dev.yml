@@ -10,4 +10,6 @@ spring:
 
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
-  type-aliases-package: com.example.entity
+  type-aliases-package: com.wuyan.masteryi.mall.entity
+  configuration:
+    map-underscore-to-camel-case: true
