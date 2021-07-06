@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuyan.masteryi.mall.mapper.OrderMapper">
+    <select id="getOrdersByUID" resultType="Order">
+       select * from `order` where user_id=#{u_id}
+    </select>
+    <select id="getOrdersById" resultType="Order">
+        select * from `order` where order_id=#{order_id}
+    </select>
+    <select id="getOrderStatu" resultType="int">
+        select order_status from `order` where order_id=#{order_id}
+    </select>
+    <insert id="creatOrder" parameterType="com.wuyan.masteryi.mall.entity.Order">
+        <selectKey resultType="java.lang.Integer" keyProperty="orderId" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+        insert into `order` values (null,#{UserId},#{orderTotalPrice},#{orderStatus},default,#{orderNo},#{address})
+    </insert>
+</mapper>

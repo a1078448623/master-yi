@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuyan.masteryi.mall.mapper.UserMapper">
+    <select id="getUserByNP" resultType="User">
+       select * from user where user_name=#{username} and user_pwd=#{password}
+    </select>
+    <update id="setAddr">
+        update user set address=#{address} where user_id=#{u_id}
+    </update>
+    <update id="setPhoneNum">
+        update user set phone_num=#{phoneNum} where user_id=#{u_id}
+    </update>
+    <insert id="addUser">
+        insert into user values (null,#{username},#{password},default,default,default)
+
+    </insert>
+    <update id="setImg">
+        update user set user_img_url=#{imgurl} where user_id=#{u_id}
+    </update>
+    <select id="isNameRep" resultType="User">
+        select * from user where user_name=#{username}
+    </select>
+    <select id="isPhoneRep" resultType="User">
+        select * from user where phone_num=#{phoneNum}
+    </select>
+</mapper>

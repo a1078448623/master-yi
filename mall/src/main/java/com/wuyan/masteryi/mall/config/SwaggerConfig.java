@@ -32,11 +32,11 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Your title here")
-                .description("some description")
+                .title("Master YI 后端接口文档")
+                .description("所有参数均为必填项，100表示错误/否/没有，200表示正常/有，响应实例暂时没有")
                 // 作者信息
-                .contact(new Contact("name", "个人主页url", "email"))
-                .version("1.0.0")
+                .contact(new Contact("赵书庆、王世宁", "个人主页url", "email"))
+                .version("2.0.0")
                 .build();
     }
 }
