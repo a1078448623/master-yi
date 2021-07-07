@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuyan.masteryi.admin.mapper.CategoryMapper">
+    <select id="getAllCategory" resultType="Category">
+        select * from category
+    </select>
+
+    <select id="getCategoryNameById" resultType="string">
+        select category_name from category where category_id = #{categoryId}
+    </select>
+
+    <insert id="addCategory">
+        insert into category value(null,#{parentId},#{categoryName})
+    </insert>
+
+    <delete id="deleteCategory">
+        delete from category where category_id = #{categoryId} or parent_category_id = #{categoryId}
+    </delete>
+
+    <update id="changeCategoryName">
+        update category set category_name = #{newName} where category_id = #{categoryId}
+    </update>
+
+    <select id="getAllAttrItem" resultType="AttrItem">
+        select goods_attr_key.category_id,goods_attr_key.id,goods_attr_key.key_name,goods_attr_value.id,goods_attr_value.value_name
+        from goods_attr_key,goods_attr_value where goods_attr_key.id = goods_attr_value.attr_key_id and category_id = #{categoryId}
+    </select>
+</mapper>

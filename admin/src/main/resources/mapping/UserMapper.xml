@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuyan.masteryi.admin.mapper.UserMapper">
+    <select id="getAllUser" resultType="User">
+        select * from user
+    </select>
+
+    <insert id="addUser">
+        insert into user values (null,#{userName},#{userPwd},#{userImgUrl},#{address},#{phoneNum})
+    </insert>
+
+    <delete id="deleteUser">
+        delete from user where user_id = #{userId}
+    </delete>
+
+    <update id="changeUser" parameterType="User">
+        update user set user_name = #{user.userName, jdbcType=VARCHAR}, user_pwd = #{user.userPwd, jdbcType=VARCHAR},
+                        user_img_url = #{user.userImgUrl, jdbcType=VARCHAR}, address = #{user.address, jdbcType=VARCHAR}, phone_num=#{user.phoneNum, jdbcType=VARCHAR}
+        where user_id = #{user.userId}
+    </update>
+
+</mapper>
