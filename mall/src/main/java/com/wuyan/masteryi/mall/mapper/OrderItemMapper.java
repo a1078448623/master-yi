@@ -8,6 +8,7 @@ package com.wuyan.masteryi.mall.mapper;
 
 import com.wuyan.masteryi.mall.entity.Goods;
 import com.wuyan.masteryi.mall.entity.OrderItem;
+import com.wuyan.masteryi.mall.entity.SingleOrderItem;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +18,8 @@ import java.util.List;
 @Mapper
 public interface OrderItemMapper {
 
-    List<Goods> getOrderGoods(int order_id);
+    List<SingleOrderItem> getOrderGoods(int order_id);
     List<OrderItem> getItems(int order_id);
-    int addItem(int order_id,int good_id,int num);
+    int addItem(int order_id,int good_id,int num,float price);
+    int delOrderItem(int order_id);
 }

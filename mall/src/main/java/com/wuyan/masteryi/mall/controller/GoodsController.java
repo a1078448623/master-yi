@@ -45,7 +45,7 @@ public class GoodsController {
     @PostMapping("/addSell")
     @ApiOperation(value = "销量增加",notes = "增加销量,传入购买商品和数量的数组")
     public Map<String,Object> addSell(int []good_id,int []num){
-       return goodsService.addSell(good_id,num);
+        return goodsService.addSell(good_id,num);
     }
 
     @PostMapping("/goodById")
@@ -55,13 +55,19 @@ public class GoodsController {
     }
     @PostMapping("/stockPrice")
     @ApiOperation(value = "获得库存和价格",notes = "根据不同特征获得商品库存和价格")
-    public Map<String,Object> getStockPrice(int good_id,String specs){
+    public Map<String,Object> getStockPrice(int good_id,int []specs){
         return goodsService.getStockPrice(good_id,specs);
 
     }
     @PostMapping("/goodTest")
-    @ApiOperation(value = "根据id",notes = "根据id获得商品")
-    public Map<String,Object> test(int good_id){
-        return goodsService.test(good_id);
+    @ApiOperation(value = "商品详细分类",notes = "根据id获得商品详细分类")
+    public Map<String,Object> getGoodTypes(int good_id){
+        return goodsService.getGoodTypes(good_id);
+    }
+
+    @PostMapping("/detailMsg")
+    @ApiOperation(value = "特征详细信息",notes = "通过详细分类的id获得详细信息")
+    public Map<String,Object> getSpecsDesc(int id){
+        return goodsService.getSpecsDesc(id);
     }
 }

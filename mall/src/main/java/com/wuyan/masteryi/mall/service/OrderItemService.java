@@ -16,5 +16,6 @@ public interface OrderItemService {
 
     Map<String,Object> getOrderGoods(int order_id);
     Map<String,Object> getItems(int order_id);
-    void addItem(int order_id,int good_id,int num);
+    void addItem(int order_id,int good_id,int num,float price);
+    void delItem(int order_id);
 }

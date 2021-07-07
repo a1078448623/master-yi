@@ -26,9 +26,9 @@ public class OrderController {
 
     @PostMapping("/creatOrder")
     @ApiOperation(value = "创建订单",notes = "根据所给所有商品和价格等信息创建订单")
-    public Map<String,Object> creatOrder(int[] goods, int [] num,int u_id, int status,
-                                         float price, String address, String orderNo){
-        return orderService.creatOrder(goods,num,u_id,status,price,address,orderNo);
+    public Map<String,Object> creatOrder(int[] goods, int [] num,float[] singlePrice,int u_id, int status,
+                                         float price, String address){
+        return orderService.creatOrder(goods,num,singlePrice,u_id,status,price,address);
     }
 
     @ApiOperation(value = "根据用户获取订单",notes = "根据所给的用户id来获取该用户的所有订单")
@@ -39,7 +39,7 @@ public class OrderController {
     @ApiOperation(value = "根据订单id获取订单",notes = "根据订单id获取订单")
     @PostMapping("/getOrderByid")
     public Map<String,Object> getOrdersById(int order_id){
-        return orderService.getOrdersByUID(order_id);
+        return orderService.getOrdersById(order_id);
     }
 
     @PostMapping("/getStatus")

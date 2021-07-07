@@ -24,5 +24,9 @@ public interface GoodsMapper {
     Map<String,Object> getStockPrice(int good_id,String specs);
     List<String> getSpecs(int good_id);
     String getKeyName(int id);
+    int getKeyId(int id);
     GoodsAttrValue getValueName(int id);
+    String getSpecsById(int id);
+    void stockDesc(int id,int num);
+    void stockAdd(int id,int num);
 }
