@@ -12,8 +12,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface CartItemMapper {
-    public int addCartItem(Integer userId, Integer goodsId, Integer goodsNum);
-    public int deleteCartItemById(Integer cartItemId);
-    public int deleteAllCartItem(Integer userId);
-    public int changeGoodsNumById(Integer cartItemId, Integer newGoodsNum);
+    int addCartItem(Integer userId, Integer goodsId, Integer goodsNum);
+    int deleteCartItemById(Integer cartItemId);
+    int deleteAllCartItem(Integer userId);
+    int changeGoodsNumById(Integer cartItemId, Integer newGoodsNum);
+    int goodsNumSub1(Integer cartItemId);
+    int goodsNumAdd1(Integer cartItemId);
+
 }

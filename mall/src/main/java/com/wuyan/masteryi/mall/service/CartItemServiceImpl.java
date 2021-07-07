@@ -45,4 +45,14 @@ public class CartItemServiceImpl implements CartItemService{
     public Map<String,Object> changeGoodsNumById(Integer cartItemId, Integer newGoodsNum) {
         return ResponseMsg.sendMsg(200, "成功更改购物车中商品数量", cartItemMapper.changeGoodsNumById(cartItemId, newGoodsNum));
     }
+
+    @Override
+    public Map<String, Object> goodsNumSub1(Integer cartItemId) {
+        return ResponseMsg.sendMsg(200, "成功将购物车商品数量减一", cartItemMapper.goodsNumSub1(cartItemId));
+    }
+
+    @Override
+    public Map<String, Object> goodsNumAdd1(Integer cartItemId) {
+        return ResponseMsg.sendMsg(200, "成功将购物车商品数量加一", cartItemMapper.goodsNumAdd1(cartItemId));
+    }
 }

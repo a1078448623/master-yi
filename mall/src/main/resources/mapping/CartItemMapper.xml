@@ -16,4 +16,12 @@
     <update id="changeGoodsNumById">
         update cartitem set goods_num = #{goodsNum} where cart_item_id = #{cartItemId}
     </update>
+
+    <update id="goodsNumSub1">
+        update cartitem set goods_num = goods_num-1 where cart_item_id = #{cartItemId}
+    </update>
+
+    <update id="goodsNumAdd1">
+        update cartitem set goods_num = goods_num+1 where cart_item_id = #{cartItemId}
+    </update>
 </mapper>

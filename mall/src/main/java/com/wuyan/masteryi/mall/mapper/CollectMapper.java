@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface CollectMapper {
-    public int addToCollect(Integer userId, Integer goodsId);
-    public int deleteFromCollect(Integer collectId);
+    int addToCollect(Integer userId, Integer goodsId);
+    int deleteFromCollect(Integer collectId);
 }

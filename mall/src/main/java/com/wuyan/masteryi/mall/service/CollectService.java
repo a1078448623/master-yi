@@ -9,6 +9,6 @@ import java.util.Map;
  */
 
 public interface CollectService {
-    public Map<String, Object> addToCollect(Integer userId, Integer goodsId);
-    public Map<String, Object> deleteFromCollect(Integer collectId);
+    Map<String, Object> addToCollect(Integer userId, Integer goodsId);
+    Map<String, Object> deleteFromCollect(Integer collectId);
 }
