@@ -51,9 +51,34 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
-    public Map<String, Object> getStockPrice(int good_id, String specs) {
-
-        Map<String,Object> m=goodsMapper.getStockPrice(good_id,specs);
+    public Map<String, Object> getStockPrice(int good_id, int []specs) {
+        String res="";
+        int []keys=new int[specs.length];
+        for(int i=0;i<specs.length;i++){
+            System.out.println(specs[i]);
+            keys[i]=goodsMapper.getKeyId(specs[i]);
+            System.out.println(keys[i]);
+        }
+        System.out.println("11111111");
+        for(int i =0 ; i<specs.length-1 ; i++) {
+            for(int j=0 ; j<specs.length-1-i ; j++) {
+                if(specs[j]>specs[j+1]) {
+                    int temp = specs[j];
+                    int temp2=keys[j];
+                    specs[j]=specs[j+1];
+                    keys[j]=keys[j+1];
+                    specs[j+1]=temp;
+                    keys[j+1]=temp2;
+                }
+            }
+        }
+        for(int i =0;i<specs.length;i++){
+            if(i<specs.length-1){
+                res=res+keys[i]+":"+specs[i]+",";
+            }
+            else res=res+keys[i]+":"+specs[i];
+        }
+        Map<String,Object> m=goodsMapper.getStockPrice(good_id,res);
 
         return ResponseMsg.sendMsg(200,"查询成功",m);
     }
@@ -68,7 +93,7 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
-    public Map<String,Object> test(int good_id) {
+    public Map<String,Object> getGoodTypes(int good_id) {
         Map<String, Set<String>> temp=new HashMap<>();
         List<String> strings=goodsMapper.getSpecs(good_id);
         Map<String,List<GoodsAttrValue>> res=new HashMap<>();
@@ -90,6 +115,20 @@ public class GoodsServiceImpl implements GoodsService{
             }
             res.put(goodsMapper.getKeyName(Integer.parseInt(key)),goodsAttrValues);
         }
+
+        return ResponseMsg.sendMsg(200,"查询成功",res);
+    }
+
+    @Override
+    public Map<String, Object> getSpecsDesc(int id) {
+        String s=goodsMapper.getSpecsById(id);
+        Map<String,String> res=new HashMap<>();
+        String[] split = s.split(",");
+        for(String ss:split){
+            res.put(goodsMapper.getKeyName(Integer.parseInt(ss.split(":")[0])),
+                    goodsMapper.getValueName(Integer.parseInt(ss.split(":")[1])).getValueName());
+        }
+
 
         return ResponseMsg.sendMsg(200,"查询成功",res);
     }
