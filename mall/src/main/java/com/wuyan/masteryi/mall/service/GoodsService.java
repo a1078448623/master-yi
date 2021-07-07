@@ -15,6 +15,7 @@ public interface GoodsService {
     Map<String,Object> getAllGoods();
     Map<String,Object> addSell(int []good_id,int []num);
     Map<String,Object> addCollect(int good_id);
-    Map<String,Object> descStock(int []good_id,int []num);
+    Map<String,Object> getStockPrice(int good_id,String specs);
     Map<String,Object> getGoodById(int good_id);
+    Map<String,Object> test(int good_id);
 }
