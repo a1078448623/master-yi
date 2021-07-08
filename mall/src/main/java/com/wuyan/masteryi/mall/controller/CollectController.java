@@ -16,7 +16,7 @@ import java.util.Map;
  * @Description:
  */
 
-@Api("collect")
+@Api(tags="收藏接口")
 @RestController
 @RequestMapping("/collect")
 public class CollectController {

@@ -10,7 +10,7 @@
     </delete>
 
     <delete id="deleteAllCartItem">
-        delete from cartitem where cart_item_id = #{cartItemId}
+        delete from cartitem where user_id = #{userId}
     </delete>
 
     <update id="changeGoodsNumById">
@@ -24,4 +24,10 @@
     <update id="goodsNumAdd1">
         update cartitem set goods_num = goods_num+1 where cart_item_id = #{cartItemId}
     </update>
+
+    <select id="showMyCart" resultType="SingleCartItem">
+        select cart_item_id,goods_num,goods.goods_id,goods_name,goods_information,goods_cover_url,id,specs,price,add_time
+        from goods,goods_specs,cartitem
+        where goods.goods_id = goods_specs.goods_id and cartitem.goods_id = goods_specs.id and cartitem.user_id = #{userId}
+    </select>
 </mapper>

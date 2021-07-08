@@ -16,7 +16,7 @@ import java.util.Map;
  * @Description:
  */
 
-@Api("cartitem")
+@Api(tags="购物车接口")
 @RestController
 @RequestMapping("/cartitem")
 public class CartItemController {
@@ -60,4 +60,9 @@ public class CartItemController {
         return cartItemService.goodsNumAdd1(cartItemId);
     }
 
+    @ApiOperation(value="查看购物车", notes="查看购物车")
+    @PostMapping("/showmycart")
+    public Map<String,Object> showMyCart(Integer userId){
+        return cartItemService.showMyCart(userId);
+    }
 }

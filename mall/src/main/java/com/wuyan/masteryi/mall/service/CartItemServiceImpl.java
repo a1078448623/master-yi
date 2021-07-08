@@ -55,4 +55,9 @@ public class CartItemServiceImpl implements CartItemService{
     public Map<String, Object> goodsNumAdd1(Integer cartItemId) {
         return ResponseMsg.sendMsg(200, "成功将购物车商品数量加一", cartItemMapper.goodsNumAdd1(cartItemId));
     }
+
+    @Override
+    public Map<String, Object> showMyCart(Integer userId) {
+        return ResponseMsg.sendMsg(200, "成功查询购物车", cartItemMapper.showMyCart(userId));
+    }
 }

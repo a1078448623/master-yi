@@ -16,7 +16,7 @@ import java.util.Map;
  * @Description:
  */
 
-@Api("category")
+@Api(tags="分类接口")
 @RestController
 @RequestMapping("/category")
 public class CategoryController {

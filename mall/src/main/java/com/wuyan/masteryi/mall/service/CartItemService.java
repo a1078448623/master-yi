@@ -1,5 +1,8 @@
 package com.wuyan.masteryi.mall.service;
 
+import com.wuyan.masteryi.mall.entity.SingleCartItem;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,4 +18,5 @@ public interface CartItemService {
     Map<String,Object> changeGoodsNumById(Integer cartItemId, Integer newGoodsNum);
     Map<String,Object> goodsNumSub1(Integer cartItemId);
     Map<String,Object> goodsNumAdd1(Integer cartItemId);
+    Map<String,Object> showMyCart(Integer userId);
 }
