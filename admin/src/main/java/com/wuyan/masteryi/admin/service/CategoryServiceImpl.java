@@ -30,7 +30,6 @@ public class CategoryServiceImpl implements CategoryService{
                 parent_ids.add(ca.getParentCategoryId());
             }
         }
-        System.out.println(parent_ids);
         for (Integer parent_id : parent_ids) {
             List<Category> child = new ArrayList<>();
             for (Category ca : allCategory) {
