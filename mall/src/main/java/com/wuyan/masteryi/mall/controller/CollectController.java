@@ -36,4 +36,10 @@ public class CollectController {
         return collectService.deleteFromCollect(collectId);
     }
 
+    @ApiOperation(value="获取收藏夹", notes="获取收藏夹")
+    @PostMapping("/showmycollect")
+    public Map<String, Object> showMyCollect(Integer userId){
+        return collectService.showMyCollect(userId);
+    }
+
 }

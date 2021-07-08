@@ -53,4 +53,6 @@ public class CategoryController {
     public Map<String, Object> getAllAttr(Integer categoryId){
         return categoryService.getAllAttr(categoryId);
     }
+
+
 }

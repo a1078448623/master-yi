@@ -22,4 +22,10 @@ public interface CategoryMapper {
     int deleteCategory(Integer categoryId);
     int changeCategoryName(Integer categoryId, String newName);
     List<AttrItem> getAllAttrItem(Integer categoryId);
+    int addAttrKey(Integer categoryId, String attrKeyName);
+    int addAttrValue(Integer attrKeyId, String attrValueName);
+    int deleteAttrKey(Integer attrKeyId);
+    int deleteAttrValue(Integer attrValueId);
+    int changeAttrKey(Integer attrKeyId, String newKeyName);
+    int changeAttrValue(Integer attrValueId, String newValueName);
 }

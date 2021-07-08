@@ -13,4 +13,10 @@ public interface CategoryService {
     Map<String, Object> deleteCategory(Integer categoryId);
     Map<String, Object> changeCategoryName(Integer categoryId, String newName);
     Map<String, Object> getAllAttr(Integer categoryId);
+    Map<String, Object> addAttrKey(Integer categoryId, String attrKeyName);
+    Map<String, Object> addAttrValue(Integer attrKeyId, String attrValueName);
+    Map<String, Object> deleteAttrKey(Integer attrKeyId);
+    Map<String, Object> deleteAttrValue(Integer attrValueId);
+    Map<String, Object> changeAttrKey(Integer attrKeyId, String newKeyName);
+    Map<String, Object> changeAttrValue(Integer attrValueId, String newValueName);
 }

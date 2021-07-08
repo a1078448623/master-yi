@@ -28,4 +28,9 @@ public class CollectServiceImpl implements CollectService {
     public Map<String, Object> deleteFromCollect(Integer collectId) {
         return ResponseMsg.sendMsg(200, "成功从收藏夹删除", collectMapper.deleteFromCollect(collectId));
     }
+
+    @Override
+    public Map<String, Object> showMyCollect(Integer userId) {
+        return ResponseMsg.sendMsg(200, "获取收藏夹成功", collectMapper.showMyCollect(userId));
+    }
 }

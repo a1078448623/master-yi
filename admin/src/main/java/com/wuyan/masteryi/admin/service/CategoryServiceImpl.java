@@ -77,4 +77,34 @@ public class CategoryServiceImpl implements CategoryService{
         }
         return ResponseMsg.sendMsg(200,"查询成功",res);
     }
+
+    @Override
+    public Map<String, Object> addAttrKey(Integer categoryId, String attrKeyName) {
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> addAttrValue(Integer attrKeyId, String attrValueName) {
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> deleteAttrKey(Integer attrKeyId) {
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> deleteAttrValue(Integer attrValueId) {
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> changeAttrKey(Integer attrKeyId, String newKeyName) {
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> changeAttrValue(Integer attrValueId, String newValueName) {
+        return null;
+    }
 }

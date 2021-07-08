@@ -49,13 +49,13 @@ public class CartItemController {
     }
 
     @ApiOperation(value="加购数量减一", notes="加购数量减一")
-    @PostMapping("/changegoodsnumbyid")
+    @PostMapping("/goodsnumsub1")
     public Map<String,Object> goodsNumSub1(Integer cartItemId){
         return cartItemService.goodsNumSub1(cartItemId);
     }
 
     @ApiOperation(value="加购数量加一", notes="加购数量加一")
-    @PostMapping("/changegoodsnumbyid")
+    @PostMapping("/goodsnumadd1")
     public Map<String,Object> goodsNumAdd1(Integer cartItemId){
         return cartItemService.goodsNumAdd1(cartItemId);
     }
