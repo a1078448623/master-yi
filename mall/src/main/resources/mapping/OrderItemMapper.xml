@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wuyan.masteryi.mall.mapper.OrderItemMapper">
-    <select id="getOrderGoods" resultType="Goods">
-       select goods.goods_id,goods_name,goods_information,goods_category_id,goods_cover_url,goods_price,stock_num,collect_num,sell_num
-       from orderiterm,goods
-       where orderiterm.goods_id=goods.goods_id and orderiterm.order_id=#{order_id}
+<!--    <select id="getOrderGoods" resultType="Goods">-->
+<!--       select goods.goods_id,goods_name,goods_information,goods_category_id,goods_cover_url,collect_num,sell_num-->
+<!--       from orderiterm,goods,goods_specs-->
+<!--       where orderiterm.goods_id=goods_specs.id and goods.goods_id=goods_specs.goods_id and orderiterm.order_id=#{order_id}-->
+<!--    </select>-->
+    <select id="getOrderGoods" resultType="SingleOrderItem">
+        select distinct goods.goods_id,goods_name,goods_information,goods_cover_url,id,goods_num,single_price
+        from goods,orderiterm,`order`,goods_specs
+        where orderiterm.order_id=#{order_id} and orderiterm.goods_id=goods_specs.id and
+              goods_specs.goods_id=goods.goods_id
     </select>
     <select id="getItems" resultType="OrderItem">
         select * from orderiterm where order_id=#{order_id}
     </select>
     <insert id="addItem">
 
-        insert into orderiterm values (null,#{order_id},#{good_id},#{num})
+        insert into orderiterm values (null,#{order_id},#{good_id},#{num},#{price})
     </insert>
+    <delete id="delOrderItem">
+        delete from orderiterm where order_id=#{order_id}
+    </delete>
 </mapper>

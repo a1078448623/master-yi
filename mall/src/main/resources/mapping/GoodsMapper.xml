@@ -2,7 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wuyan.masteryi.mall.mapper.GoodsMapper">
     <select id="getAllGoods" resultType="Goods">
-       select * from goods
+       select goods.goods_id,goods_name,goods_information,
+              goods_category_id,goods_cover_url,collect_num,
+              sell_num,attr_list,price as low_price
+       from goods,goods_specs
+       where goods.goods_id=goods_specs.goods_id
+        and price &lt;=all (
+            select price from goods_specs,goods
+            where goods.goods_id=goods_specs.goods_id
+        )
+
     </select>
     <update id="addSell">
         update goods set sell_num=sell_num+#{num} where goods_id=#{good_id}
@@ -10,10 +19,35 @@
     <update id="addCollect">
         update goods set collect_num=collect_num+1 where goods_id=#{good_id}
     </update>
-    <update id="descStock">
-        update goods set stock_num=stock_num-#{num} where goods_id=#{good_id}
-    </update>
+
     <select id="getGoodById" resultType="Goods">
         select * from goods where goods_id=#{good_id}
     </select>
+
+    <select id="getStockPrice" resultType="java.util.HashMap">
+        select id,stock,price from goods_specs where goods_id=#{good_id} and specs=#{specs}
+    </select>
+    
+    <select id="getSpecs" resultType="java.lang.String">
+        select specs from goods_specs where goods_id=#{good_id}
+    </select>
+
+    <select id="getKeyName" resultType="java.lang.String">
+        select key_name from goods_attr_key where id=#{id}
+    </select>
+    <select id="getValueName" resultType="GoodsAttrValue">
+        select * from goods_attr_value where id=#{id}
+    </select>
+    <select id="getKeyId" resultType="java.lang.Integer">
+        select attr_key_id from goods_attr_value where id=#{id}
+    </select>
+    <select id="getSpecsById" resultType="java.lang.String">
+        select specs from goods_specs where id=#{id}
+    </select>
+    <update id="stockDesc">
+        update goods_specs set stock=stock-#{num} where id=#{id}
+    </update>
+    <update id="stockAdd">
+        update goods_specs set stock=stock+#{num} where id=#{id}
+    </update>
 </mapper>

@@ -8,6 +8,7 @@ package com.wuyan.masteryi.mall.service;
 
 import com.wuyan.masteryi.mall.entity.Goods;
 import com.wuyan.masteryi.mall.entity.OrderItem;
+import com.wuyan.masteryi.mall.entity.SingleOrderItem;
 import com.wuyan.masteryi.mall.mapper.OrderItemMapper;
 import com.wuyan.masteryi.mall.utils.ResponseMsg;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,15 @@ public class OrderItemServiceImpl implements OrderItemService{
     @Autowired
     OrderItemMapper orderItemMapper;
 
+    @Autowired
+    GoodsService goodsService;
+
     @Override
     public Map<String,Object> getOrderGoods(int order_id) {
-        List<Goods> goodsList=orderItemMapper.getOrderGoods(order_id);
+        List<SingleOrderItem> goodsList=orderItemMapper.getOrderGoods(order_id);
+        for(SingleOrderItem singleOrderItem:goodsList){
+            singleOrderItem.setDescription((Map<String, String>) goodsService.getSpecsDesc(singleOrderItem.getId()).get("data"));
+        }
         if(goodsList!=null) return ResponseMsg.sendMsg(200,"查询成功",goodsList);
         else return ResponseMsg.sendMsg(100,"没有商品",null);
 
@@ -38,7 +45,12 @@ public class OrderItemServiceImpl implements OrderItemService{
     }
 
     @Override
-    public void addItem(int order_id, int good_id, int num) {
-        orderItemMapper.addItem(order_id,good_id,num);
+    public void addItem(int order_id, int good_id, int num,float price) {
+        orderItemMapper.addItem(order_id,good_id,num,price);
+    }
+
+    @Override
+    public void delItem(int order_id) {
+        orderItemMapper.delOrderItem(order_id);
     }
 }

@@ -15,8 +15,8 @@ public class Goods {
     private String goodsInformation;
     private Integer goodsCategoryId;
     private String goodsCoverUrl;
-    private float goodsPrice;
-    private Integer stockNum;
     private Integer collectNum;
     private Integer sellNum;
+    private String attrList;
+    private float lowPrice;
 }
