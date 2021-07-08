@@ -25,4 +25,29 @@
         select goods_attr_key.category_id,goods_attr_key.id,goods_attr_key.key_name,goods_attr_value.id,goods_attr_value.value_name
         from goods_attr_key,goods_attr_value where goods_attr_key.id = goods_attr_value.attr_key_id and category_id = #{categoryId}
     </select>
+
+    <insert id="addAttrKey">
+        insert into goods_attr_key value(null, #{categoryId}, #{attrKeyName})
+    </insert>
+
+    <insert id="addAttrValue">
+        insert into goods_attr_value value(null, #{attrKeyId}, #{attrValueName})
+    </insert>
+
+    <delete id="deleteAttrKey">
+        delete from goods_attr_key where id = #{attrKeyId};
+        delete from goods_attr_value where attr_key_id = #{attrKeyId}
+    </delete>
+
+    <delete id="deleteAttrValue">
+        delete from goods_attr_value where id = #{attrValueId}
+    </delete>
+
+    <update id="changeAttrKey">
+        update goods_attr_key set key_name = #{newKeyName} where id = #{attrKeyId}
+    </update>
+
+    <update id="changeAttrValue">
+        update goods_attr_value set value_name = #{newValueName} where id = #{attrValueId}
+    </update>
 </mapper>

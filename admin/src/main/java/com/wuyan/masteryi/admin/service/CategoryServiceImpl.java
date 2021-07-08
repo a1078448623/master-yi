@@ -80,31 +80,31 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public Map<String, Object> addAttrKey(Integer categoryId, String attrKeyName) {
-        return null;
+        return ResponseMsg.sendMsg(200, "成功添加新属性键", categoryMapper.addAttrKey(categoryId, attrKeyName));
     }
 
     @Override
     public Map<String, Object> addAttrValue(Integer attrKeyId, String attrValueName) {
-        return null;
+        return ResponseMsg.sendMsg(200, "成功添加新属性值", categoryMapper.addAttrValue(attrKeyId, attrValueName));
     }
 
     @Override
     public Map<String, Object> deleteAttrKey(Integer attrKeyId) {
-        return null;
+        return ResponseMsg.sendMsg(200, "成功删除所选属性键", categoryMapper.deleteAttrKey(attrKeyId));
     }
 
     @Override
     public Map<String, Object> deleteAttrValue(Integer attrValueId) {
-        return null;
+        return ResponseMsg.sendMsg(200, "成功删除所选属性值", categoryMapper.deleteAttrValue(attrValueId));
     }
 
     @Override
     public Map<String, Object> changeAttrKey(Integer attrKeyId, String newKeyName) {
-        return null;
+        return ResponseMsg.sendMsg(200, "成功更改所选属性键的名字", categoryMapper.changeAttrKey(attrKeyId, newKeyName));
     }
 
     @Override
     public Map<String, Object> changeAttrValue(Integer attrValueId, String newValueName) {
-        return null;
+        return ResponseMsg.sendMsg(200, "成功更改所选属性值的名字", categoryMapper.changeAttrValue(attrValueId, newValueName));
     }
 }

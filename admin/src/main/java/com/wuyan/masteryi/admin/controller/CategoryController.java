@@ -54,5 +54,39 @@ public class CategoryController {
         return categoryService.getAllAttr(categoryId);
     }
 
+    @ApiOperation(value="添加属性键", notes="添加属性键")
+    @PostMapping("/addattrkey")
+    public Map<String, Object> addAttrKey (Integer categoryId, String attrKeyName){
+        return categoryService.addAttrKey(categoryId, attrKeyName);
+    }
 
+    @ApiOperation(value="添加属性值", notes="添加属性值")
+    @PostMapping("/addattrvalue")
+    public Map<String, Object> addAttrValue (Integer attrKeyId, String attrValueName){
+        return categoryService.addAttrValue(attrKeyId, attrValueName);
+    }
+
+    @ApiOperation(value="删除属性键", notes="删除属性键")
+    @PostMapping("/deleteattrkey")
+    public Map<String, Object> deleteAttrKey(Integer attrKeyId){
+        return categoryService.deleteAttrKey(attrKeyId);
+    }
+
+    @ApiOperation(value="删除属性值", notes="删除属性值")
+    @PostMapping("/deleteattrvalue")
+    public Map<String, Object> deleteAttrValue(Integer attrValueId){
+        return categoryService.deleteAttrValue(attrValueId);
+    }
+
+    @ApiOperation(value="更改属性键名字", notes="更改属性键名字")
+    @PostMapping("/changeattrkey")
+    public Map<String, Object> changeAttrKey(Integer attrKeyId, String newKeyName){
+        return categoryService.changeAttrKey(attrKeyId, newKeyName);
+    }
+
+    @ApiOperation(value="更改属性值名字", notes="更改属性值名字")
+    @PostMapping("/changeattrvalue")
+    public Map<String, Object> changeAttrValue(Integer attrValueId, String newValueName){
+        return categoryService.changeAttrValue(attrValueId, newValueName);
+    }
 }
