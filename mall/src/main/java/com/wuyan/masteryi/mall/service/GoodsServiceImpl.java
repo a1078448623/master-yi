@@ -132,4 +132,10 @@ public class GoodsServiceImpl implements GoodsService{
 
         return ResponseMsg.sendMsg(200,"查询成功",res);
     }
+    @Override
+    public Map<String, Object> getGoodsByType(int category_id) {
+        List<Goods> goodsList=goodsMapper.getGoodsByType(category_id);
+        if(goodsList==null) return ResponseMsg.sendMsg(100,"该分类下没有商品",null);
+        else return ResponseMsg.sendMsg(200,"查询成功",goodsList);
+    }
 }

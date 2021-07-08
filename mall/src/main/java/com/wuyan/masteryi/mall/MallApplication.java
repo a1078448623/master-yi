@@ -8,7 +8,7 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 
 
 @EnableOpenApi
-//@MapperScan("com.wuyan.masteryi.mall.mapper")
+@MapperScan("com.wuyan.masteryi.mall.mapper")
 @SpringBootApplication
 
 

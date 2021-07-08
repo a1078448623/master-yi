@@ -19,5 +19,6 @@ public interface GoodsService {
     Map<String,Object> getGoodById(int good_id);
     Map<String,Object> getGoodTypes(int good_id);
     Map<String,Object> getSpecsDesc(int id);
+    Map<String,Object> getGoodsByType(int category_id);
 
 }

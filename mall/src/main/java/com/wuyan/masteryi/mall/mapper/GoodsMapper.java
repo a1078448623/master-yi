@@ -29,4 +29,5 @@ public interface GoodsMapper {
     String getSpecsById(int id);
     void stockDesc(int id,int num);
     void stockAdd(int id,int num);
+    List<Goods> getGoodsByType(int c_id);
 }

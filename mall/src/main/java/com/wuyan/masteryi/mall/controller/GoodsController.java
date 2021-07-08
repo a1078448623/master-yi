@@ -70,4 +70,10 @@ public class GoodsController {
     public Map<String,Object> getSpecsDesc(int id){
         return goodsService.getSpecsDesc(id);
     }
+
+    @PostMapping("/categoryGoods")
+    @ApiOperation(value = "获得各分类下的商品",notes = "根据分类id获得商品")
+    public Map<String,Object> getGoodsByType(int category_id){
+        return goodsService.getGoodsByType(category_id);
+    }
 }
