@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuyan.masteryi.admin.mapper.GoodsMapper">
+
+    <select id="getAllGoods" resultType="Goods">
+        select goods.goods_id,goods_name,goods_information,
+              goods_category_id,goods_cover_url,collect_num,
+              sell_num,min(price) as low_price
+       from goods,goods_specs
+       where goods.goods_id=goods_specs.goods_id
+        group by goods.goods_id
+    </select>
+
+    <select id="getAllSpecs" resultType="GoodSpecs">
+        select * from goods_specs where goods_id = #{goodsId}
+    </select>
+
+    <insert id="addGood">
+        insert into goods value(null,#{goodsName},#{goodsInformation},#{goodsCategoryId},
+                                #{goodsCoverUrl},#{collectNum},#{sellNum})
+    </insert>
+
+    <insert id="addSpecs">
+        insert into goods_specs value(null,#{goodsId},#{specs},#{stock},#{price})
+    </insert>
+
+    <update id="changeStock">
+        update goods_specs set stock = #{newStock} where id = #{goodSpecsId}
+    </update>
+
+    <update id="changePrice">
+        update goods_specs set price = #{newPrice} where id = #{goodSpecsId}
+    </update>
+
+    <delete id="deleteSpecs">
+        delete from goods_specs where id = #{goodSpecsId}
+    </delete>
+
+    <delete id="deleteGoods">
+        delete from goods_specs where goods_id = #{goodsId};
+        delete from goods where goods_id = #{goodsId}
+    </delete>
+
+    <select id="getKeyName" resultType="java.lang.String">
+        select key_name from goods_attr_key where id=#{id}
+    </select>
+
+    <select id="getValueName" resultType="GoodsAttrValue">
+        select * from goods_attr_value where id=#{id}
+    </select>
+
+    <select id="getSpecsById" resultType="java.lang.String">
+        select specs from goods_specs where id=#{id}
+    </select>
+
+</mapper>
