@@ -21,5 +21,6 @@ public interface OrderMapper {
     int getOrderStatu(int order_id);
 //    int creatOrder(int u_id,float price,int status,String address,String orderNo);
     int creatOrder(Order order);
-    int delOrder(int order_id,String orderNo);
+    void delOrder(int order_id,String orderNo);
+    void changeStatu(String orderNo,int statu);
 }

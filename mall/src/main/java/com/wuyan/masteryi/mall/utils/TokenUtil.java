@@ -22,9 +22,7 @@ public class TokenUtil {
     /**
      * @Description  ：生成token
      * @author       : lj
-     * @param        : [user]
      * @return       : java.lang.String
-     * @exception    :
      * @date         : 2021-7-7 14:49
      */
     public static String sign(User user){
