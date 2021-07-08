@@ -19,9 +19,9 @@ public class Order {
     private Date createTime;
     private String address;
     private String orderNo;
-    private String formate_time;
+    //private String formate_time;
 
-    public Order(Integer orderId, Integer userId, float orderTotalPrice, Integer orderStatus, Date createTime, String address, String orderNo, String formate_time) {
+    public Order(Integer orderId, Integer userId, float orderTotalPrice, Integer orderStatus, Date createTime, String address, String orderNo) {
         this.orderId = orderId;
         UserId = userId;
         this.orderTotalPrice = orderTotalPrice;
@@ -29,6 +29,6 @@ public class Order {
         this.createTime = createTime;
         this.address = address;
         this.orderNo = orderNo;
-        this.formate_time = formate_time;
+        //this.formate_time = formate_time;
     }
 }
