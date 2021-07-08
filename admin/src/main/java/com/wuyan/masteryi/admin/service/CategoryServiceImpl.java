@@ -40,6 +40,7 @@ public class CategoryServiceImpl implements CategoryService{
             }
             data.put(categoryMapper.getCategoryNameById(parent_id), child);
         }
+        System.out.println(data);
         return ResponseMsg.sendMsg(200, "成功获取分类信息", data);
     }
 
