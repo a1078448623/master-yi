@@ -24,4 +24,9 @@
     <update id="changeStatu">
         update `order` set order_status=#{statu} where order_no=#{orderNo}
     </update>
+
+    <select id="getOrdersByNo" resultType="Order">
+        select order_id, user_id, order_total_price, order_status, create_time, order_no, order_addr
+        from `order` where order_no=#{orderNo}
+    </select>
 </mapper>
