@@ -16,5 +16,5 @@ public class User {
     private String userImgUrl;
     private String address;
     private String phoneNum;
-    private float lowPrice;
+    private float consumption;
 }

@@ -19,6 +19,7 @@ import java.util.Map;
 public interface GoodsMapper {
     List<Goods> getAllGoods();
     int addSell(int good_id, int num);
+    int addSellByOrderId(int orderId);
     int addCollect(int good_id);
     Goods getGoodById(int good_id);
     Map<String,Object> getStockPrice(int good_id,String specs);

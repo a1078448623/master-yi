@@ -20,6 +20,7 @@ public interface OrderItemMapper {
 
     List<SingleOrderItem> getOrderGoods(int order_id);
     List<OrderItem> getItems(int order_id);
+    List<OrderItem> getItemsByNo(String orderNo);
     int addItem(int order_id,int good_id,int num,float price);
     int delOrderItem(int order_id);
 }

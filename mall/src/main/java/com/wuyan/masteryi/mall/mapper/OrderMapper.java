@@ -18,6 +18,7 @@ public interface OrderMapper {
 
     List<Order> getOrdersByUID(int u_id);
     Order getOrdersById(int order_id);
+    Order getOrdersByNo(String orderNo);
     int getOrderStatu(int order_id);
 //    int creatOrder(int u_id,float price,int status,String address,String orderNo);
     int creatOrder(Order order);

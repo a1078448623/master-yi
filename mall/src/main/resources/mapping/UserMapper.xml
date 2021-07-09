@@ -23,4 +23,7 @@
     <select id="isPhoneRep" resultType="User">
         select * from user where phone_num=#{phoneNum}
     </select>
+    <update id="addUserConsumption">
+        update user set consumption = consumption + #{money} where user_id=#{userId}
+    </update>
 </mapper>

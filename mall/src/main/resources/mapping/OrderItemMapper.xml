@@ -15,6 +15,11 @@
     <select id="getItems" resultType="OrderItem">
         select * from orderiterm where order_id=#{order_id}
     </select>
+
+    <select id="getItemsByNo" resultType="OrderItem">
+        select * from orderiterm where order_id in (select order_id from `order` where order_no = #{orderNo})
+    </select>
+
     <insert id="addItem">
 
         insert into orderiterm values (null,#{order_id},#{good_id},#{num},#{price})

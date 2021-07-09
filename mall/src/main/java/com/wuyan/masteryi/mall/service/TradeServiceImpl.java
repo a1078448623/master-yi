@@ -13,7 +13,11 @@ import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.wuyan.masteryi.mall.config.AliPayConfig;
 import com.wuyan.masteryi.mall.entity.Order;
+import com.wuyan.masteryi.mall.entity.OrderItem;
+import com.wuyan.masteryi.mall.mapper.GoodsMapper;
+import com.wuyan.masteryi.mall.mapper.OrderItemMapper;
 import com.wuyan.masteryi.mall.mapper.OrderMapper;
+import com.wuyan.masteryi.mall.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +26,22 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 @Service
 public class TradeServiceImpl implements TradeService{
     @Autowired
     OrderMapper orderMapper;
+
+    @Autowired
+    GoodsMapper goodsMapper;
+
+    @Autowired
+    OrderItemMapper orderItemMapper;
+
+    @Autowired
+    UserMapper userMapper;
 
     @Override
     public String aliPay(int order_id, String orderNo) throws IOException {
@@ -101,6 +115,12 @@ public class TradeServiceImpl implements TradeService{
             System.out.println(params.get("trade_status"));
             if(signVerified){
                 orderMapper.changeStatu(params.get("out_trade_no"),2);
+                List<OrderItem> items = orderItemMapper.getItemsByNo(params.get("out_trade_no"));
+                for(OrderItem item:items) {
+                    goodsMapper.addSell(item.getGoodsId(),item.getGoodsNum());
+                }
+                Order order = orderMapper.getOrdersByNo(params.get("out_trade_no"));
+                userMapper.addConsumption(order.getUserId(),order.getOrderTotalPrice());
             }
         } catch (AlipayApiException e) {
             e.printStackTrace();
