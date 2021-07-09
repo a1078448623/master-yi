@@ -1,5 +1,6 @@
 package com.wuyan.masteryi.admin.service;
 
+import com.wuyan.masteryi.admin.entity.GoodSpecs;
 import com.wuyan.masteryi.admin.entity.Goods;
 import com.wuyan.masteryi.admin.mapper.GoodsMapper;
 import com.wuyan.masteryi.admin.utils.ResponseMsg;
@@ -39,7 +40,24 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public Map<String, Object> getAllSpecs(Integer goods_id) {
-        return ResponseMsg.sendMsg(200, "成功获取所有商品信息", goodsMapper.getAllSpecs(goods_id));
+        List<Map> res = new ArrayList<>();
+        List<GoodSpecs> speces = goodsMapper.getAllSpecs(goods_id);
+        for(GoodSpecs spec:speces) {
+            Map<String,Object> perRes = new HashMap<>();
+            perRes.put("id",spec.getId());
+            perRes.put("goodId",spec.getGoodsId());
+            Map<String,String> specDetail = new HashMap<>();
+            String s = spec.getSpecs();
+            String[] split = s.split(",");
+            for(String ss:split){
+                specDetail.put(goodsMapper.getKeyName(Integer.parseInt(ss.split(":")[0])), goodsMapper.getValueName(Integer.parseInt(ss.split(":")[1])).getValueName());
+            }
+            perRes.put("specDetail",specDetail);
+            perRes.put("price",spec.getPrice());
+            perRes.put("stock",spec.getStock());
+            res.add(perRes);
+        }
+        return ResponseMsg.sendMsg(200, "成功获取所有商品信息", res);
     }
 
     @Override
@@ -59,7 +77,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public Map<String, Object> changePrice(Integer newPrice, Integer goodSpecsId) {
+    public Map<String, Object> changePrice(float newPrice, Integer goodSpecsId) {
         return ResponseMsg.sendMsg(200, "成功改变价格", goodsMapper.changePrice(newPrice, goodSpecsId));
     }
 

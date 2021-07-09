@@ -18,7 +18,7 @@ public interface GoodsMapper {
                             String goodsCoverUrl, Integer collectNum, Integer sellNum);
     int addSpecs(Integer goodsId, String specs, Integer stock, float price);
     int changeStock(Integer newStock, Integer goodSpecsId);
-    int changePrice(Integer newPrice, Integer goodSpecsId);
+    int changePrice(float newPrice, Integer goodSpecsId);
     int deleteSpecs(Integer goodSpecsId);
     int deleteGoods(Integer goodsId);
     String getKeyName(int id);

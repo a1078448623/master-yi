@@ -57,7 +57,7 @@ public class GoodsController {
 
     @ApiOperation(value="改变商品价格", notes="改变商品价格")
     @PostMapping("/changeprice")
-    public Map<String, Object> changePrice(Integer newPrice, Integer goodSpecsId) {
+    public Map<String, Object> changePrice(float newPrice, Integer goodSpecsId) {
         return goodsService.changePrice(newPrice, goodSpecsId);
     }
 
