@@ -11,12 +11,14 @@ import java.util.List;
 @Repository
 public interface GoodsMapper {
     List<Goods> getAllGoods();
+    List<Integer> getChildCategoryByParentId(Integer parentId);
+    List<Goods> getChildCategoryGoods(Integer childId);
     List<GoodSpecs> getAllSpecs(Integer goods_id);
     int addGood(String goodsName, String goodsInformation, Integer goodsCategoryId,
                             String goodsCoverUrl, Integer collectNum, Integer sellNum);
     int addSpecs(Integer goodsId, String specs, Integer stock, float price);
     int changeStock(Integer newStock, Integer goodSpecsId);
-    int changePrice(Integer newPrice, Integer goodSpecsId);
+    int changePrice(float newPrice, Integer goodSpecsId);
     int deleteSpecs(Integer goodSpecsId);
     int deleteGoods(Integer goodsId);
     String getKeyName(int id);

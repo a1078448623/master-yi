@@ -17,6 +17,5 @@ public class Goods {
     private String goodsCoverUrl;
     private Integer collectNum;
     private Integer sellNum;
-    private String attrList;
     private float lowPrice;
 }

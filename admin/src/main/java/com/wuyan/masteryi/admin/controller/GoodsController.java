@@ -22,6 +22,14 @@ public class GoodsController {
     @PostMapping("/getallgoods")
     public Map<String, Object> getAllGoods(){ return goodsService.getAllGoods();}
 
+    @ApiOperation(value="获取某父类下的商品", notes="获取某父类下的商品")
+    @PostMapping("/getparentcategorygoods")
+    public Map<String, Object> getParentCategoryGoods(Integer parentId){ return goodsService.getParentCategoryGoods(parentId);}
+
+    @ApiOperation(value="获取某子类下的商品", notes="获取某子类下的商品")
+    @PostMapping("/getchildcategorygoods")
+    public Map<String, Object> getChildCategoryGoods(Integer childId){ return goodsService.getChildCategoryGoods(childId);}
+
     @ApiOperation(value="获取该商品全部属性", notes="获取该商品全部属性")
     @PostMapping("/getallgoodspecs")
     public Map<String, Object> getAllSpecs(Integer goods_id) {
@@ -49,7 +57,7 @@ public class GoodsController {
 
     @ApiOperation(value="改变商品价格", notes="改变商品价格")
     @PostMapping("/changeprice")
-    public Map<String, Object> changePrice(Integer newPrice, Integer goodSpecsId) {
+    public Map<String, Object> changePrice(float newPrice, Integer goodSpecsId) {
         return goodsService.changePrice(newPrice, goodSpecsId);
     }
 

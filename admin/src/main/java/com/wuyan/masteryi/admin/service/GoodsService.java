@@ -18,12 +18,14 @@ private Integer goodsId;
 
 public interface GoodsService {
     Map<String, Object> getAllGoods();
+    Map<String, Object> getParentCategoryGoods(Integer parentId);
+    Map<String, Object> getChildCategoryGoods(Integer childId);
     Map<String, Object> getAllSpecs(Integer goods_id);
     Map<String, Object> addGood(String goodsName, String goodsInformation, Integer goodsCategoryId,
                 String goodsCoverUrl, Integer collectNum, Integer sellNum);
     Map<String, Object> addSpecs(Integer goodsId, String specs, Integer stock, float price);
     Map<String, Object> changeStock(Integer newStock, Integer goodSpecsId);
-    Map<String, Object> changePrice(Integer newPrice, Integer goodSpecsId);
+    Map<String, Object> changePrice(float newPrice, Integer goodSpecsId);
     Map<String, Object> deleteSpecs(Integer goodSpecsId);
     Map<String, Object> deleteGoods(Integer goodsId);
     Map<String,Object> getSpecsDesc(int id);

@@ -13,7 +13,7 @@ spring:
 
   datasource:
     username: root
-    password: 125800
+    password: 123456
     url: jdbc:mysql://localhost:3306/masteryi?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC&allowMultiQueries=true
     driver-class-name: com.mysql.cj.jdbc.Driver
 
