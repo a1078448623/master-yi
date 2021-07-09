@@ -16,13 +16,9 @@
 //@Configuration
 //public class WebConfiguration implements WebMvcConfigurer {
 //
-//    @Autowired
-//    private TokenInterceptor tokenInterceptor;
+//    private TokenInterceptor tokenInterceptor = new TokenInterceptor();
 //
-//    /**
-//     * 跨域处理
-//     * @param registry
-//     */
+//    //跨域处理
 //    @Override
 //    public void addCorsMappings(CorsRegistry registry) {
 //        registry.addMapping("/**")
@@ -32,10 +28,7 @@
 //                .allowCredentials(true);
 //    }
 //
-//    /**
-//     * 异步请求配置
-//     * @param configurer
-//     */
+//    //异步请求
 //    @Override
 //    public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
 //        configurer.setTaskExecutor(new ConcurrentTaskExecutor(Executors.newFixedThreadPool(3)));
@@ -46,8 +39,8 @@
 //    public void addInterceptors(InterceptorRegistry registry) {
 //        List<String> excludePath = new ArrayList<>();
 //        //排除拦截，除了注册登录(此时还没token)，其他都拦截
-//        excludePath.add("/register");  //登录
-//        excludePath.add("/login");     //注册
+//        excludePath.add("/register");  //注册
+//        excludePath.add("/login");     //登录
 //        excludePath.add("/static/**");  //静态资源
 //        excludePath.add("/assets/**");  //静态资源
 //        registry.addInterceptor(tokenInterceptor)
