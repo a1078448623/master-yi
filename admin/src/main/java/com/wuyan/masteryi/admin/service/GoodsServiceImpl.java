@@ -1,11 +1,14 @@
 package com.wuyan.masteryi.admin.service;
 
+import com.wuyan.masteryi.admin.entity.Goods;
 import com.wuyan.masteryi.admin.mapper.GoodsMapper;
 import com.wuyan.masteryi.admin.utils.ResponseMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -17,6 +20,21 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public Map<String, Object> getAllGoods(){
         return ResponseMsg.sendMsg(200, "成功获取所有商品信息", goodsMapper.getAllGoods());
+    }
+
+    @Override
+    public Map<String, Object> getParentCategoryGoods(Integer parentId) {
+        List<Goods> res = new ArrayList<Goods>();
+        List<Integer> childIds = goodsMapper.getChildCategoryByParentId(parentId);
+        for(Integer childId:childIds) {
+            res.addAll(goodsMapper.getChildCategoryGoods(childId));
+        }
+        return ResponseMsg.sendMsg(200, "成功获取所有商品信息", res);
+    }
+
+    @Override
+    public Map<String, Object> getChildCategoryGoods(Integer childId) {
+        return ResponseMsg.sendMsg(200, "成功获取所有商品信息", goodsMapper.getChildCategoryGoods(childId));
     }
 
     @Override

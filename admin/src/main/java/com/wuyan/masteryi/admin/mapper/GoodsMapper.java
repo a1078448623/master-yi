@@ -11,6 +11,8 @@ import java.util.List;
 @Repository
 public interface GoodsMapper {
     List<Goods> getAllGoods();
+    List<Integer> getChildCategoryByParentId(Integer parentId);
+    List<Goods> getChildCategoryGoods(Integer childId);
     List<GoodSpecs> getAllSpecs(Integer goods_id);
     int addGood(String goodsName, String goodsInformation, Integer goodsCategoryId,
                             String goodsCoverUrl, Integer collectNum, Integer sellNum);

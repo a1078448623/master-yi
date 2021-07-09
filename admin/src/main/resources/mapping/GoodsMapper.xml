@@ -11,6 +11,14 @@
         group by goods.goods_id
     </select>
 
+    <select id="getChildCategoryByParentId" resultType="integer">
+        select category_id from category where parent_category_id = #{parentId}
+    </select>
+
+    <select id="getChildCategoryGoods" resultType="Goods">
+        select * from goods where goods_category_id = #{childId}
+    </select>
+
     <select id="getAllSpecs" resultType="GoodSpecs">
         select * from goods_specs where goods_id = #{goodsId}
     </select>
