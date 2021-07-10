@@ -45,7 +45,7 @@ public class GoodsController {
 
     @ApiOperation(value="添加商品属性", notes="添加商品属性")
     @PostMapping("/addspec")
-    public Map<String, Object> addSpecs(Integer goodsId, String specs, Integer stock, float price) {
+    public Map<String, Object> addSpecs(Integer goodsId, int[] specs, Integer stock, float price) {
         return goodsService.addSpecs(goodsId, specs, stock, price);
     }
 
@@ -73,4 +73,20 @@ public class GoodsController {
         return goodsService.deleteGoods(goodsId);
     }
 
+    @ApiOperation(value="某特征的描述", notes="某特征的描述")
+    @PostMapping("/getDescp")
+    public Map<String,Object> getDescp(int id){
+        return goodsService.getSpecsDesc(id);
+    }
+    @PostMapping("/goodTest")
+    @ApiOperation(value = "商品详细分类",notes = "根据id获得商品详细分类")
+    public Map<String,Object> getGoodTypes(int good_id){
+        return goodsService.getGoodTypes(good_id);
+    }
+
+    @PostMapping("/valuesByKey")
+    @ApiOperation(value = "根据key获得values",notes = "根据key获得values")
+    public Map<String,Object> getValuesByKey(int []key_id){
+        return goodsService.getValuesByKey(key_id);
+    }
 }

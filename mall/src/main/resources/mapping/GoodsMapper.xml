@@ -4,10 +4,11 @@
     <select id="getAllGoods" resultType="Goods">
        select goods.goods_id,goods_name,goods_information,
               goods_category_id,goods_cover_url,collect_num,
-              sell_num,attr_list,min(price) as low_price
+              sell_num,min(price) as low_price
        from goods,goods_specs
        where goods.goods_id=goods_specs.goods_id
-        group by goods.goods_id
+        group by goods.goods_id,sell_num
+        order by sell_num desc
 
     </select>
     <update id="addSell">
@@ -50,7 +51,7 @@
     <select id="getGoodsByType" resultType="Goods">
         select goods.goods_id,goods_name,goods_information,
                goods_category_id,goods_cover_url,collect_num,
-               sell_num,attr_list,min(price) as low_price
+               sell_num,min(price) as low_price
         from goods,goods_specs
         where goods.goods_id=goods_specs.goods_id and goods_category_id=#{c_id}
         group by goods.goods_id

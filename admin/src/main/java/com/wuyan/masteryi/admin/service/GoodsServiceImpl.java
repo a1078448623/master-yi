@@ -2,15 +2,13 @@ package com.wuyan.masteryi.admin.service;
 
 import com.wuyan.masteryi.admin.entity.GoodSpecs;
 import com.wuyan.masteryi.admin.entity.Goods;
+import com.wuyan.masteryi.admin.entity.GoodsAttrValue;
 import com.wuyan.masteryi.admin.mapper.GoodsMapper;
 import com.wuyan.masteryi.admin.utils.ResponseMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class GoodsServiceImpl implements GoodsService {
@@ -67,8 +65,36 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public Map<String, Object> addSpecs(Integer goodsId, String specs, Integer stock, float price) {
-        return ResponseMsg.sendMsg(200, "成功添加属性", goodsMapper.addSpecs(goodsId, specs, stock, price));
+    public Map<String, Object> addSpecs(Integer goodsId, int []specs, Integer stock, float price) {
+        String res="";
+        int []keys=new int[specs.length];
+        for(int i=0;i<specs.length;i++){
+            keys[i]=goodsMapper.getKeyId(specs[i]);
+        }
+        for(int i =0 ; i<specs.length-1 ; i++) {
+            for(int j=0 ; j<specs.length-1-i ; j++) {
+                if(specs[j]>specs[j+1]) {
+                    int temp = specs[j];
+                    int temp2=keys[j];
+                    specs[j]=specs[j+1];
+                    keys[j]=keys[j+1];
+                    specs[j+1]=temp;
+                    keys[j+1]=temp2;
+                }
+            }
+        }
+        for(int i =0;i<specs.length;i++){
+            if(i<specs.length-1){
+                res=res+keys[i]+":"+specs[i]+",";
+            }
+            else res=res+keys[i]+":"+specs[i];
+        }
+        if(goodsMapper.getStockPrice(goodsId,res)!=null) return ResponseMsg.sendMsg(100,"该规格商品已存在",null);
+        else {
+            goodsMapper.addSpecs(goodsId,res,stock,price);
+            return ResponseMsg.sendMsg(200,"添加成功","ok");
+        }
+        //return ResponseMsg.sendMsg(200, "成功添加属性", goodsMapper.addSpecs(goodsId, specs, stock, price));
     }
 
     @Override
@@ -93,12 +119,47 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public Map<String, Object> getSpecsDesc(int id) {
         String s=goodsMapper.getSpecsById(id);
-        Map<String,String> res=new HashMap<>();
+        Map<String, GoodsAttrValue> res=new HashMap<>();
         String[] split = s.split(",");
         for(String ss:split){
             res.put(goodsMapper.getKeyName(Integer.parseInt(ss.split(":")[0])),
-                    goodsMapper.getValueName(Integer.parseInt(ss.split(":")[1])).getValueName());
+                    goodsMapper.getValueName(Integer.parseInt(ss.split(":")[1])));
         }
         return ResponseMsg.sendMsg(200,"查询成功",res);
+    }
+    @Override
+    public Map<String,Object> getGoodTypes(int good_id) {
+        Map<String, Set<String>> temp=new HashMap<>();
+        List<String> strings=goodsMapper.getSpecs(good_id);
+        Map<String,List<GoodsAttrValue>> res=new HashMap<>();
+
+        String[] split = strings.get(0).split(",");
+        for (String value : split) {
+            temp.put(value.split(":")[0], new HashSet<>());
+        }
+        for(String s:strings){
+            String[] split1 = s.split(",");
+            for(String ss:split1){
+                temp.get(ss.split(":")[0]).add(ss.split(":")[1]);
+            }
+        }
+        for(String key:temp.keySet()){
+            List<GoodsAttrValue> goodsAttrValues=new ArrayList<>();
+            for(String value:temp.get(key)){
+                goodsAttrValues.add(goodsMapper.getValueName(Integer.parseInt(value)));
+            }
+            res.put(goodsMapper.getKeyName(Integer.parseInt(key)),goodsAttrValues);
+        }
+
+        return ResponseMsg.sendMsg(200,"查询成功",res);
+    }
+
+    @Override
+    public Map<String, Object> getValuesByKey(int []key_id) {
+        List<List<GoodsAttrValue>> l=new ArrayList<>();
+        for(int i :key_id){
+            l.add(goodsMapper.getValuesByKey(i));
+        }
+        return ResponseMsg.sendMsg(200,"查询成功",l);
     }
 }
