@@ -1,8 +1,10 @@
 package com.wuyan.masteryi.admin.service;
 
+import com.wuyan.masteryi.admin.entity.AttrItem;
 import com.wuyan.masteryi.admin.entity.GoodSpecs;
 import com.wuyan.masteryi.admin.entity.Goods;
 import com.wuyan.masteryi.admin.entity.GoodsAttrValue;
+import com.wuyan.masteryi.admin.mapper.CategoryMapper;
 import com.wuyan.masteryi.admin.mapper.GoodsMapper;
 import com.wuyan.masteryi.admin.utils.ResponseMsg;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     GoodsMapper goodsMapper;
+
+    @Autowired
+    CategoryMapper categoryMapper;
 
     @Override
     public Map<String, Object> getAllGoods(){
@@ -60,8 +65,23 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public Map<String, Object> addGood(String goodsName, String goodsInformation, Integer goodsCategoryId,
-                                       String goodsCoverUrl, Integer collectNum, Integer sellNum) {
-        return ResponseMsg.sendMsg(200, "成功添加商品", goodsMapper.addGood(goodsName, goodsInformation, goodsCategoryId,goodsCoverUrl,collectNum,sellNum));
+                                       String goodsCoverUrl, Integer collectNum, Integer sellNum,int [] specs,float primaryPrice) {
+
+        Goods goods=new Goods(0,goodsName,goodsInformation,goodsCategoryId,goodsCoverUrl,collectNum,sellNum,primaryPrice);
+        goodsMapper.addGood(goods);
+        int goodId=goods.getGoodsId();
+        int []temp=new int[specs.length];
+        int cnt=0;
+        for(int i=0;i<specs.length;i++){
+            List<AttrItem> keyMapValue = categoryMapper.getKeyMapValue(specs[i]);
+            if(keyMapValue.size()>0){
+                temp[cnt]=Integer.parseInt(keyMapValue.get(0).getValueId());
+                cnt++;
+            }
+        }
+        int []res=new int[cnt];
+        for(int i=0;i<cnt;i++) res[i]=temp[i];
+        return addSpecs(goodId,res,0,primaryPrice);
     }
 
     @Override

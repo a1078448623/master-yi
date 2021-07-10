@@ -23,7 +23,10 @@
         select * from goods_specs where goods_id = #{goodsId}
     </select>
 
-    <insert id="addGood">
+    <insert id="addGood" parameterType="com.wuyan.masteryi.admin.entity.Goods">
+        <selectKey resultType="java.lang.Integer" keyProperty="goodsId" order="AFTER">
+            select last_insert_id()
+        </selectKey>
         insert into goods value(null,#{goodsName},#{goodsInformation},#{goodsCategoryId},
                                 #{goodsCoverUrl},#{collectNum},#{sellNum})
     </insert>

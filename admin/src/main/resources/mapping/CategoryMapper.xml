@@ -23,7 +23,7 @@
 
     <select id="getAllAttrItem" resultType="AttrItem">
         select goods_attr_key.category_id,goods_attr_key.id as key_id,goods_attr_key.key_name,goods_attr_value.id as value_id,goods_attr_value.value_name
-        from goods_attr_key,goods_attr_value where goods_attr_key.id = goods_attr_value.attr_key_id and category_id = #{categoryId}
+        from goods_attr_key,goods_attr_value where goods_attr_key.id = goods_attr_value.attr_key_id and goods_attr_key.id=#{id}
     </select>
 
     <insert id="addAttrKey">
@@ -53,5 +53,11 @@
     <select id="getKeyMapValue" resultType="AttrItem">
         select goods_attr_key.category_id,goods_attr_key.id as key_id,goods_attr_key.key_name,goods_attr_value.id as value_id,goods_attr_value.value_name
         from goods_attr_key,goods_attr_value where goods_attr_key.id = goods_attr_value.attr_key_id and attr_key_id=#{key_id}
+    </select>
+    <select id="getKeyIds" resultType="java.lang.Integer">
+        select id from goods_attr_key where category_id=#{cate_id}
+    </select>
+    <select id="getNameById" resultType="java.lang.String">
+        select key_name from goods_attr_key where id=#{id}
     </select>
 </mapper>

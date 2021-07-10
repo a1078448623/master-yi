@@ -4,8 +4,10 @@ import com.wuyan.masteryi.admin.entity.AttrItem;
 import com.wuyan.masteryi.admin.entity.Category;
 import com.wuyan.masteryi.admin.mapper.CategoryMapper;
 import com.wuyan.masteryi.admin.utils.ResponseMsg;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Attr;
 
 import java.util.*;
 
@@ -42,7 +44,6 @@ public class CategoryServiceImpl implements CategoryService{
             }
             data.put(categoryMapper.getCategoryNameById(parent_id), child);
         }
-        System.out.println(data);
         return ResponseMsg.sendMsg(200, "成功获取分类信息", data);
     }
 
@@ -63,21 +64,36 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public Map<String, Object> getAllAttr(Integer categoryId) {
-        List<AttrItem> attrs = categoryMapper.getAllAttrItem(categoryId);
         Map<String,List<AttrItem>> res = new HashMap<>();
-        Set<String> key = new HashSet<String>();
-        for(AttrItem attr:attrs){
-            key.add(attr.getKeyName());
-        }
-        for(String perkey:key) {
-            List<AttrItem> perlist = new ArrayList<>();
-            for(AttrItem attr:attrs) {
-                if(attr.getKeyName().equals(perkey)) {
-                    perlist.add(attr);
-                }
+        List<Integer> ids=categoryMapper.getKeyIds(categoryId);
+        List<AttrItem> attrs=new ArrayList<>();
+        for (int id :ids){
+            List<AttrItem> allAttrItem = categoryMapper.getAllAttrItem(id);
+            String name = categoryMapper.getNameById(id);
+            if(allAttrItem.size()==0) {
+                List<AttrItem> attrItemList=new ArrayList<>();
+                attrItemList.add(new AttrItem(categoryId, id + "", name, "0", ""));
+
+                res.put(name,attrItemList );
             }
-            res.put(perkey,perlist);
+            else res.put(name,allAttrItem);
         }
+
+//        System.out.println(attrs);
+//
+//        Set<String> key = new HashSet<String>();
+//        for(AttrItem attr:attrs){
+//            key.add(attr.getKeyName());
+//        }
+//        for(String perkey:key) {
+//            List<AttrItem> perlist = new ArrayList<>();
+//            for(AttrItem attr:attrs) {
+//                if(attr.getKeyName().equals(perkey)) {
+//                    perlist.add(attr);
+//                }
+//            }
+//            res.put(perkey,perlist);
+//        }
         return ResponseMsg.sendMsg(200,"查询成功",res);
     }
 

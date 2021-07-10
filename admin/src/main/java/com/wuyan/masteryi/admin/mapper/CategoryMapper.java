@@ -29,4 +29,6 @@ public interface CategoryMapper {
     int changeAttrKey(Integer attrKeyId, String newKeyName);
     int changeAttrValue(Integer attrValueId, String newValueName);
     List<AttrItem> getKeyMapValue(int key_id);
+    List<Integer> getKeyIds(int cate_id);
+    String getNameById(int id);
 }

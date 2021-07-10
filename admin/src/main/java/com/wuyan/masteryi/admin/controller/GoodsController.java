@@ -39,8 +39,8 @@ public class GoodsController {
     @ApiOperation(value="添加商品", notes="添加商品")
     @PostMapping("/addgood")
     public Map<String, Object> addGood(String goodsName, String goodsInformation, Integer goodsCategoryId,
-                                       String goodsCoverUrl, Integer collectNum, Integer sellNum) {
-        return goodsService.addGood(goodsName, goodsInformation, goodsCategoryId, goodsCoverUrl, collectNum, sellNum);
+                                       String goodsCoverUrl, Integer collectNum, Integer sellNum,int [] specs,float primaryPrice) {
+        return goodsService.addGood(goodsName, goodsInformation, goodsCategoryId, goodsCoverUrl, collectNum, sellNum,specs,primaryPrice);
     }
 
     @ApiOperation(value="添加商品属性", notes="添加商品属性")
