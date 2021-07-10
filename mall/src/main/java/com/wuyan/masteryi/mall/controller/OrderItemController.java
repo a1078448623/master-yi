@@ -26,7 +26,7 @@ public class OrderItemController {
 
     @PostMapping("/order-goods")
     @ApiOperation(value = "订单商品",notes = "根据订单id获得订单的商品")
-    public Map<String,Object> getOrderGoods(int order_id){
+    public Map<String,Object> getOrderGoods(int []order_id){
         return orderItemService.getOrderGoods(order_id);
     }
 

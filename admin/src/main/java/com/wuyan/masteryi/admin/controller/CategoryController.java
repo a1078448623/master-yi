@@ -89,4 +89,10 @@ public class CategoryController {
     public Map<String, Object> changeAttrValue(Integer attrValueId, String newValueName){
         return categoryService.changeAttrValue(attrValueId, newValueName);
     }
+
+    @ApiOperation(value = "根据key获得属性",notes = "根据key获得属性")
+    @PostMapping("/getValuesByKey")
+    public Map<String,Object> getKeyValueMap(int key_id){
+        return categoryService.getKeyMapValue(key_id);
+    }
 }

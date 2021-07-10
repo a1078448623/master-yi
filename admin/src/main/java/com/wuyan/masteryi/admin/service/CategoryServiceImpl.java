@@ -37,6 +37,9 @@ public class CategoryServiceImpl implements CategoryService{
                     child.add(ca);
                 }
             }
+            if(child.size()==0){
+                child.add(new Category(0,parent_id,"aaa"));
+            }
             data.put(categoryMapper.getCategoryNameById(parent_id), child);
         }
         System.out.println(data);
@@ -106,5 +109,10 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public Map<String, Object> changeAttrValue(Integer attrValueId, String newValueName) {
         return ResponseMsg.sendMsg(200, "成功更改所选属性值的名字", categoryMapper.changeAttrValue(attrValueId, newValueName));
+    }
+
+    @Override
+    public Map<String, Object> getKeyMapValue(int key_id) {
+        return ResponseMsg.sendMsg(200,"查询成功",categoryMapper.getKeyMapValue(key_id));
     }
 }

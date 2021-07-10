@@ -28,4 +28,5 @@ public interface CategoryMapper {
     int deleteAttrValue(Integer attrValueId);
     int changeAttrKey(Integer attrKeyId, String newKeyName);
     int changeAttrValue(Integer attrValueId, String newValueName);
+    List<AttrItem> getKeyMapValue(int key_id);
 }

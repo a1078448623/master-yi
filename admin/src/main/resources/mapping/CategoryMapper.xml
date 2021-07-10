@@ -22,7 +22,7 @@
     </update>
 
     <select id="getAllAttrItem" resultType="AttrItem">
-        select goods_attr_key.category_id,goods_attr_key.id,goods_attr_key.key_name,goods_attr_value.id,goods_attr_value.value_name
+        select goods_attr_key.category_id,goods_attr_key.id as key_id,goods_attr_key.key_name,goods_attr_value.id as value_id,goods_attr_value.value_name
         from goods_attr_key,goods_attr_value where goods_attr_key.id = goods_attr_value.attr_key_id and category_id = #{categoryId}
     </select>
 
@@ -50,4 +50,8 @@
     <update id="changeAttrValue">
         update goods_attr_value set value_name = #{newValueName} where id = #{attrValueId}
     </update>
+    <select id="getKeyMapValue" resultType="AttrItem">
+        select goods_attr_key.category_id,goods_attr_key.id as key_id,goods_attr_key.key_name,goods_attr_value.id as value_id,goods_attr_value.value_name
+        from goods_attr_key,goods_attr_value where goods_attr_key.id = goods_attr_value.attr_key_id and attr_key_id=#{key_id}
+    </select>
 </mapper>

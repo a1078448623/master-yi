@@ -19,4 +19,5 @@ public interface CategoryService {
     Map<String, Object> deleteAttrValue(Integer attrValueId);
     Map<String, Object> changeAttrKey(Integer attrKeyId, String newKeyName);
     Map<String, Object> changeAttrValue(Integer attrValueId, String newValueName);
+    Map<String, Object> getKeyMapValue(int key_id);
 }
