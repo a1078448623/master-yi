@@ -21,4 +21,5 @@ public interface UserMapper {
     User isNameRep(String username);
     User isPhoneRep(String phoneNum);
     int addConsumption(int userId, float money);
+    String getUserId(String username);
 }

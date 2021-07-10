@@ -72,4 +72,9 @@ public class UserServiceImpl implements UserService{
         if(i!=null) return ResponseMsg.sendMsg(100,"已重复",true);
         else return ResponseMsg.sendMsg(200,"没有重复",false);
     }
+
+    @Override
+    public String getUserId(String username) {
+        return userMapper.getUserId(username);
+    }
 }

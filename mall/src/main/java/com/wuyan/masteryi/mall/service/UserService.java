@@ -19,4 +19,5 @@ public interface UserService {
     Map<String,Object> setImg(int u_id,String imgurl);
     Map<String,Object> isNameRep(String username);
     Map<String,Object> isPhoneRep(String phoneNum);
+    String getUserId(String username);
 }
