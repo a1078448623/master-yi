@@ -60,5 +60,17 @@
     <select id="getSpecsById" resultType="java.lang.String">
         select specs from goods_specs where id=#{id}
     </select>
+    <select id="getSpecs" resultType="java.lang.String">
+        select specs from goods_specs where goods_id=#{good_id}
+    </select>
+    <select id="getValuesByKey" resultType="GoodsAttrValue">
+        select goods_attr_value.id,attr_key_id,value_name,key_name from goods_attr_value,goods_attr_key where attr_key_id=#{key_id} and attr_key_id=goods_attr_key.id
+    </select>
+    <select id="getKeyId" resultType="java.lang.Integer">
+        select attr_key_id from goods_attr_value where id=#{id}
+    </select>
+    <select id="getStockPrice" resultType="java.util.HashMap">
+        select id,stock,price from goods_specs where goods_id=#{good_id} and specs=#{specs}
+    </select>
 
 </mapper>

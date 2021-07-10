@@ -12,5 +12,6 @@ import lombok.Data;
 public class GoodsAttrValue {
     private int id;
     private int attrKeyId;
+    private String keyName;
     private String valueName;
 }

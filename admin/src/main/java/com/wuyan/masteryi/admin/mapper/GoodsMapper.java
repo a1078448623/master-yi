@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -24,4 +25,8 @@ public interface GoodsMapper {
     String getKeyName(int id);
     GoodsAttrValue getValueName(int id);
     String getSpecsById(int id);
+    List<String> getSpecs(int good_id);
+    List<GoodsAttrValue> getValuesByKey(int key_id);
+    int getKeyId(int id);
+    Map<String,Object> getStockPrice(int good_id, String specs);
 }
