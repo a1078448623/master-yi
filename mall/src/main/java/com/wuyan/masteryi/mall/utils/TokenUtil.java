@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.wuyan.masteryi.mall.entity.LoginUser;
 import com.wuyan.masteryi.mall.entity.User;
 import java.util.Date;
 
@@ -19,13 +20,8 @@ public class TokenUtil {
     private static final long EXPIRE_TIME= 10*60*60*1000;//token到期时间10小时
     private static final String TOKEN_SECRET="ljdyaishijin**3nkjnj??";  //密钥盐
 
-    /**
-     * @Description  ：生成token
-     * @author       : lj
-     * @return       : java.lang.String
-     * @date         : 2021-7-7 14:49
-     */
-    public static String sign(User user){
+   //生成token
+    public static String sign(LoginUser user){
 
         String token=null;
         try {
@@ -42,16 +38,8 @@ public class TokenUtil {
     }
 
 
-    /**
-     * @Description  ：token验证
-     * @author       : lj
-     * @param        : [token]
-     * @return       : java.lang.Boolean
-     * @exception    :
-     * @date         : 2021-7-7 14:59
-     */
+    //验证token
     public static Boolean verify(String token){
-
         try {
             JWTVerifier jwtVerifier=JWT.require(Algorithm.HMAC256(TOKEN_SECRET)).withIssuer("auth0").build();//创建token验证器
             DecodedJWT decodedJWT=jwtVerifier.verify(token);

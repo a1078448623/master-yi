@@ -21,6 +21,7 @@ public class TokenInterceptor implements HandlerInterceptor {
             return true;
         }
         response.setCharacterEncoding("utf-8");
+        //从消息头部截取token
         String token = request.getHeader("token");
         if (token!=null){
             boolean result= TokenUtil.verify(token);
@@ -39,9 +40,9 @@ public class TokenInterceptor implements HandlerInterceptor {
         } catch (Exception e) {
             return false;
         }
-        /**
-         * 还可以在此处检验用户存不存在等操作
-         */
+
+         //还可以在此处检验用户存不存在等操作
+
         return false;
     }
 }
