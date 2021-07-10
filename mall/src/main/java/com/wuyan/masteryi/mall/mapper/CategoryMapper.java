@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: Zhao Shuqing
@@ -16,5 +17,5 @@ import java.util.List;
 @Mapper
 public interface CategoryMapper {
     List<Category> getAllCategory();
-    String getCategoryNameById(Integer categoryId);
+    String getCategoryNameById(Integer cid);
 }

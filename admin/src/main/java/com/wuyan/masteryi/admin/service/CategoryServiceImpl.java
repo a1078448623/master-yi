@@ -26,8 +26,8 @@ public class CategoryServiceImpl implements CategoryService{
         List<Integer> parent_ids = new ArrayList<>();
         List<Category> allCategory = categoryMapper.getAllCategory();
         for (Category ca : allCategory) {
-            if (ca.getParentCategoryId()!=null && !parent_ids.contains(ca.getParentCategoryId())) {
-                parent_ids.add(ca.getParentCategoryId());
+            if (ca.getParentCategoryId()==null && !parent_ids.contains(ca.getCategoryId())) {
+                parent_ids.add(ca.getCategoryId());
             }
         }
         for (Integer parent_id : parent_ids) {

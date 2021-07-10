@@ -6,6 +6,6 @@
     </select>
 
     <select id="getCategoryNameById" resultType="string">
-        select category_name from category where category_id = #{categoryId}
+        select category_name from category where category_id = #{cid}
     </select>
 </mapper>
