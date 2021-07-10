@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wuyan.masteryi.mall.entity.LoginUser;
 import com.wuyan.masteryi.mall.mapper.UserMapper;
+import com.wuyan.masteryi.mall.service.UserService;
 import com.wuyan.masteryi.mall.utils.TokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,9 +20,10 @@ import java.util.HashMap;
 @RequestMapping("/login")
 @Api(tags = "登录接口")
 public class LoginController {
-
+//    @Autowired
+//    UserMapper userMapper;
     @Autowired
-    UserMapper userMapper;
+    UserService userService;
 
     @PostMapping("/comfirm")
     @ResponseBody
@@ -30,12 +32,13 @@ public class LoginController {
         HashMap<String,Object> hs=new HashMap<>();
         ObjectMapper objectMapper=new ObjectMapper();
         //判断是否有相关账号，没有token返回空
-        if(null == userMapper.getUserByNP(username, password)){ //可能不是null而是“null”
+        if(null == userService.getUserByNP(username, password)){ //可能不是null而是“null”
             hs.put("token",null);
             return objectMapper.writeValueAsString(hs);
         }
         //生成登录类
         LoginUser loginUser=new LoginUser();
+        loginUser.setUserId(userService.getUserId(username));
         loginUser.setUserName(username);
         loginUser.setPassword(password);
         //生成token并封装
