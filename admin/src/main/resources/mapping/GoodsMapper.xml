@@ -75,5 +75,7 @@
     <select id="getStockPrice" resultType="java.util.HashMap">
         select id,stock,price from goods_specs where goods_id=#{good_id} and specs=#{specs}
     </select>
-
+    <update id="changeSpecs">
+        update goods_specs set specs=#{specs} where id=#{id}
+    </update>
 </mapper>

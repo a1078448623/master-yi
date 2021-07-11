@@ -31,4 +31,5 @@ public interface GoodsService {
     Map<String,Object> getSpecsDesc(int id);
     Map<String,Object> getGoodTypes(int good_id);
     Map<String,Object> getValuesByKey(int []key_id);
+    Map<String, Object> changeSpecs(int id, int []specs);
 }

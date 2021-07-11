@@ -2,7 +2,9 @@ package com.wuyan.masteryi.admin.service;
 
 import com.wuyan.masteryi.admin.entity.AttrItem;
 import com.wuyan.masteryi.admin.entity.Category;
+import com.wuyan.masteryi.admin.entity.GoodSpecs;
 import com.wuyan.masteryi.admin.mapper.CategoryMapper;
+import com.wuyan.masteryi.admin.mapper.GoodsMapper;
 import com.wuyan.masteryi.admin.utils.ResponseMsg;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,12 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Autowired
     CategoryMapper categoryMapper;
+
+    @Autowired
+    GoodsMapper goodsMapper;
+
+    @Autowired
+    GoodsService goodsService;
 
     @Override
     public Map<String, Object> getAllType() {
@@ -108,12 +116,38 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public Map<String, Object> deleteAttrKey(Integer attrKeyId) {
-        return ResponseMsg.sendMsg(200, "成功删除所选属性键", categoryMapper.deleteAttrKey(attrKeyId));
+    public Map<String, Object> deleteAttrKey(Integer attrKeyId,int categoryId) {
+
+        List<Integer> goodIdsByCateId = categoryMapper.getGoodIdsByCateId(categoryId);
+        categoryMapper.deleteAttrKey(attrKeyId);
+        for(int goodId:goodIdsByCateId){
+            List<GoodSpecs> specses = goodsMapper.getAllSpecs(goodId);
+            for(GoodSpecs goodSpecs:specses){
+                //List<Integer> keys=new ArrayList<>();
+                List<Integer> values=new ArrayList<>();
+                String[] split = goodSpecs.getSpecs().split(",");
+                for(String s:split){
+                    if(!s.split(":")[0].equals(attrKeyId + "")){
+                        values.add(Integer.parseInt(s.split(":")[1]));
+                    }
+                }
+                if(values.size()!=0){
+                    int [] valueIds=new int[values.size()];
+                    for(int i=0;i<values.size();i++) valueIds[i]=values.get(i);
+                    goodsService.changeSpecs(goodSpecs.getId(),valueIds);
+                }
+                else categoryMapper.delSpecsById(goodSpecs.getId());
+            }
+        }
+        return ResponseMsg.sendMsg(200, "成功删除所选属性键", "ok");
     }
 
     @Override
     public Map<String, Object> deleteAttrValue(Integer attrValueId) {
+
+        int keyId=categoryMapper.fromValGetKey(attrValueId);
+        String specs=keyId+":"+attrValueId;
+        categoryMapper.delSpecsBySpecs(specs);
         return ResponseMsg.sendMsg(200, "成功删除所选属性值", categoryMapper.deleteAttrValue(attrValueId));
     }
 

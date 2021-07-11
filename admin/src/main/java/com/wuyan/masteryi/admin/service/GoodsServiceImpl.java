@@ -83,7 +83,7 @@ public class GoodsServiceImpl implements GoodsService {
         for(int i=0;i<cnt;i++) res[i]=temp[i];
         return addSpecs(goodId,res,0,primaryPrice);
     }
-
+//
     @Override
     public Map<String, Object> addSpecs(Integer goodsId, int []specs, Integer stock, float price) {
         String res="";
@@ -181,5 +181,35 @@ public class GoodsServiceImpl implements GoodsService {
             l.add(goodsMapper.getValuesByKey(i));
         }
         return ResponseMsg.sendMsg(200,"查询成功",l);
+    }
+
+    @Override
+    public Map<String, Object> changeSpecs(int id, int[] specs) {
+        String res="";
+        int []keys=new int[specs.length];
+        for(int i=0;i<specs.length;i++){
+            keys[i]=goodsMapper.getKeyId(specs[i]);
+        }
+        for(int i =0 ; i<specs.length-1 ; i++) {
+            for(int j=0 ; j<specs.length-1-i ; j++) {
+                if(specs[j]>specs[j+1]) {
+                    int temp = specs[j];
+                    int temp2=keys[j];
+                    specs[j]=specs[j+1];
+                    keys[j]=keys[j+1];
+                    specs[j+1]=temp;
+                    keys[j+1]=temp2;
+                }
+            }
+        }
+        for(int i =0;i<specs.length;i++){
+            if(i<specs.length-1){
+                res=res+keys[i]+":"+specs[i]+",";
+            }
+            else res=res+keys[i]+":"+specs[i];
+        }
+        goodsMapper.changeSpecs(id,res);
+
+        return ResponseMsg.sendMsg(200,"ok","ok");
     }
 }
