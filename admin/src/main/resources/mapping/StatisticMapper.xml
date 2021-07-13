@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuyan.masteryi.admin.mapper.StatisticMapper">
+    <select id="getUserNum" resultType="java.lang.Integer">
+        select count(*) as users from user;
+    </select>
+    <select id="getOrderNum" resultType="java.lang.Integer">
+        select count(*) as orders from `order` where order_status=2;
+    </select>
+    <select id="getEraningNum" resultType="java.lang.Float">
+        select sum(order_total_price) as eranings from `order` where order_status=2;
+    </select>
+    <select id="getSalesNum" resultType="java.lang.Integer">
+        select sum(sell_num) as sales from goods;
+    </select>
+    <select id="getVisitorNum" resultType="java.lang.Integer">
+        select data_val as visitors from sys_data where id=1;
+    </select>
+    <select id="getOrderCount" resultType="OrderCount">
+        SELECT DATE_FORMAT(create_time,'%Y-%m-%d') AS date , COUNT(*) AS count ,SUM(order_total_price) AS totalMoney
+        FROM `order` WHERE (order_status=2 OR order_status=3)
+                       AND DATE(create_time)>=DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+        GROUP BY  date
+        ORDER BY date;
+    </select>
+</mapper>

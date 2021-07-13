@@ -4,6 +4,7 @@ import com.wuyan.masteryi.admin.service.CategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,7 @@ public class CategoryController {
 
     @ApiOperation(value="获取全部分类", notes="获取全部分类")
     @PostMapping("/getallcategory")
+    @Transactional
     public Map<String, Object> getAllType(){
         return categoryService.getAllType();
     }
@@ -68,12 +70,14 @@ public class CategoryController {
 
     @ApiOperation(value="删除属性键", notes="删除属性键")
     @PostMapping("/deleteattrkey")
-    public Map<String, Object> deleteAttrKey(Integer attrKeyId){
-        return categoryService.deleteAttrKey(attrKeyId);
+    @Transactional
+    public Map<String, Object> deleteAttrKey(Integer attrKeyId,int categoryId){
+        return categoryService.deleteAttrKey(attrKeyId,categoryId);
     }
 
     @ApiOperation(value="删除属性值", notes="删除属性值")
     @PostMapping("/deleteattrvalue")
+    @Transactional
     public Map<String, Object> deleteAttrValue(Integer attrValueId){
         return categoryService.deleteAttrValue(attrValueId);
     }
@@ -88,5 +92,11 @@ public class CategoryController {
     @PostMapping("/changeattrvalue")
     public Map<String, Object> changeAttrValue(Integer attrValueId, String newValueName){
         return categoryService.changeAttrValue(attrValueId, newValueName);
+    }
+
+    @ApiOperation(value = "根据key获得属性",notes = "根据key获得属性")
+    @PostMapping("/getValuesByKey")
+    public Map<String,Object> getKeyValueMap(int key_id){
+        return categoryService.getKeyMapValue(key_id);
     }
 }

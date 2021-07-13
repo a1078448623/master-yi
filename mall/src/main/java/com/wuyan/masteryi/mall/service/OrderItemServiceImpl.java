@@ -14,6 +14,7 @@ import com.wuyan.masteryi.mall.utils.ResponseMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,10 +28,18 @@ public class OrderItemServiceImpl implements OrderItemService{
     GoodsService goodsService;
 
     @Override
-    public Map<String,Object> getOrderGoods(int order_id) {
-        List<SingleOrderItem> goodsList=orderItemMapper.getOrderGoods(order_id);
-        for(SingleOrderItem singleOrderItem:goodsList){
-            singleOrderItem.setDescription((Map<String, String>) goodsService.getSpecsDesc(singleOrderItem.getId()).get("data"));
+    public Map<String,Object> getOrderGoods(int []order_id) {
+        List<List<SingleOrderItem>> goodsList=new ArrayList<>();
+        for(int i :order_id){
+            List<SingleOrderItem> goods=orderItemMapper.getOrderGoods(i);
+            goodsList.add(goods);
+        }
+
+        for(List<SingleOrderItem> single:goodsList){
+            for(SingleOrderItem singleOrderItem:single){
+                singleOrderItem.setDescription((Map<String, String>) goodsService.getSpecsDesc(singleOrderItem.getId()).get("data"));
+
+            }
         }
         if(goodsList!=null) return ResponseMsg.sendMsg(200,"查询成功",goodsList);
         else return ResponseMsg.sendMsg(100,"没有商品",null);

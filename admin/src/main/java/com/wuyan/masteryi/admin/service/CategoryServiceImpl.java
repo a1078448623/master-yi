@@ -2,10 +2,14 @@ package com.wuyan.masteryi.admin.service;
 
 import com.wuyan.masteryi.admin.entity.AttrItem;
 import com.wuyan.masteryi.admin.entity.Category;
+import com.wuyan.masteryi.admin.entity.GoodSpecs;
 import com.wuyan.masteryi.admin.mapper.CategoryMapper;
+import com.wuyan.masteryi.admin.mapper.GoodsMapper;
 import com.wuyan.masteryi.admin.utils.ResponseMsg;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Attr;
 
 import java.util.*;
 
@@ -19,6 +23,12 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Autowired
     CategoryMapper categoryMapper;
+
+    @Autowired
+    GoodsMapper goodsMapper;
+
+    @Autowired
+    GoodsService goodsService;
 
     @Override
     public Map<String, Object> getAllType() {
@@ -37,9 +47,11 @@ public class CategoryServiceImpl implements CategoryService{
                     child.add(ca);
                 }
             }
+            if(child.size()==0){
+                child.add(new Category(0,parent_id,"aaa"));
+            }
             data.put(categoryMapper.getCategoryNameById(parent_id), child);
         }
-        System.out.println(data);
         return ResponseMsg.sendMsg(200, "成功获取分类信息", data);
     }
 
@@ -60,21 +72,36 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public Map<String, Object> getAllAttr(Integer categoryId) {
-        List<AttrItem> attrs = categoryMapper.getAllAttrItem(categoryId);
         Map<String,List<AttrItem>> res = new HashMap<>();
-        Set<String> key = new HashSet<String>();
-        for(AttrItem attr:attrs){
-            key.add(attr.getKeyName());
-        }
-        for(String perkey:key) {
-            List<AttrItem> perlist = new ArrayList<>();
-            for(AttrItem attr:attrs) {
-                if(attr.getKeyName().equals(perkey)) {
-                    perlist.add(attr);
-                }
+        List<Integer> ids=categoryMapper.getKeyIds(categoryId);
+        List<AttrItem> attrs=new ArrayList<>();
+        for (int id :ids){
+            List<AttrItem> allAttrItem = categoryMapper.getAllAttrItem(id);
+            String name = categoryMapper.getNameById(id);
+            if(allAttrItem.size()==0) {
+                List<AttrItem> attrItemList=new ArrayList<>();
+                attrItemList.add(new AttrItem(categoryId, id + "", name, "0", ""));
+
+                res.put(name,attrItemList );
             }
-            res.put(perkey,perlist);
+            else res.put(name,allAttrItem);
         }
+
+//        System.out.println(attrs);
+//
+//        Set<String> key = new HashSet<String>();
+//        for(AttrItem attr:attrs){
+//            key.add(attr.getKeyName());
+//        }
+//        for(String perkey:key) {
+//            List<AttrItem> perlist = new ArrayList<>();
+//            for(AttrItem attr:attrs) {
+//                if(attr.getKeyName().equals(perkey)) {
+//                    perlist.add(attr);
+//                }
+//            }
+//            res.put(perkey,perlist);
+//        }
         return ResponseMsg.sendMsg(200,"查询成功",res);
     }
 
@@ -89,12 +116,38 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public Map<String, Object> deleteAttrKey(Integer attrKeyId) {
-        return ResponseMsg.sendMsg(200, "成功删除所选属性键", categoryMapper.deleteAttrKey(attrKeyId));
+    public Map<String, Object> deleteAttrKey(Integer attrKeyId,int categoryId) {
+
+        List<Integer> goodIdsByCateId = categoryMapper.getGoodIdsByCateId(categoryId);
+        categoryMapper.deleteAttrKey(attrKeyId);
+        for(int goodId:goodIdsByCateId){
+            List<GoodSpecs> specses = goodsMapper.getAllSpecs(goodId);
+            for(GoodSpecs goodSpecs:specses){
+                //List<Integer> keys=new ArrayList<>();
+                List<Integer> values=new ArrayList<>();
+                String[] split = goodSpecs.getSpecs().split(",");
+                for(String s:split){
+                    if(!s.split(":")[0].equals(attrKeyId + "")){
+                        values.add(Integer.parseInt(s.split(":")[1]));
+                    }
+                }
+                if(values.size()!=0){
+                    int [] valueIds=new int[values.size()];
+                    for(int i=0;i<values.size();i++) valueIds[i]=values.get(i);
+                    goodsService.changeSpecs(goodSpecs.getId(),valueIds);
+                }
+                else categoryMapper.delSpecsById(goodSpecs.getId());
+            }
+        }
+        return ResponseMsg.sendMsg(200, "成功删除所选属性键", "ok");
     }
 
     @Override
     public Map<String, Object> deleteAttrValue(Integer attrValueId) {
+
+        int keyId=categoryMapper.fromValGetKey(attrValueId);
+        String specs=keyId+":"+attrValueId;
+        categoryMapper.delSpecsBySpecs(specs);
         return ResponseMsg.sendMsg(200, "成功删除所选属性值", categoryMapper.deleteAttrValue(attrValueId));
     }
 
@@ -106,5 +159,10 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public Map<String, Object> changeAttrValue(Integer attrValueId, String newValueName) {
         return ResponseMsg.sendMsg(200, "成功更改所选属性值的名字", categoryMapper.changeAttrValue(attrValueId, newValueName));
+    }
+
+    @Override
+    public Map<String, Object> getKeyMapValue(int key_id) {
+        return ResponseMsg.sendMsg(200,"查询成功",categoryMapper.getKeyMapValue(key_id));
     }
 }
