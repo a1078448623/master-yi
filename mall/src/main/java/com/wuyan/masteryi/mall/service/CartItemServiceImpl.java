@@ -23,7 +23,12 @@ public class CartItemServiceImpl implements CartItemService{
 
     @Override
     public Map<String,Object> addCartItem(Integer userId, Integer goodsId, Integer goodsNum) {
-        return ResponseMsg.sendMsg(200, "成功添加到购物车", cartItemMapper.addCartItem(userId, goodsId, goodsNum));
+        if("null".equals(String.valueOf(cartItemMapper.isInCart(userId, goodsId)))){
+            cartItemMapper.addCartItem(userId, goodsId, goodsNum);
+        } else {
+            cartItemMapper.addNum(cartItemMapper.isInCart(userId, goodsId),goodsNum);
+        }
+        return ResponseMsg.sendMsg(200, "成功添加到购物车", 1);
     }
 
     @Override

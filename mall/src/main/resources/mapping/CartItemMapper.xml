@@ -9,6 +9,10 @@
        delete from cartitem where cart_item_id = #{cartItemId}
     </delete>
 
+    <select id="isInCart" resultType="java.lang.Integer">
+        select cart_item_id from cartitem where user_id = #{userId} and goods_id = #{goodsId}
+    </select>
+
     <delete id="deleteAllCartItem">
         delete from cartitem where user_id = #{userId}
     </delete>
@@ -19,6 +23,10 @@
 
     <update id="goodsNumSub1">
         update cartitem set goods_num = goods_num-1 where cart_item_id = #{cartItemId}
+    </update>
+
+    <update id="addNum">
+        update cartitem set goods_num = goods_num+ #{num} ,add_time = default                                                                                                                                                                                    where cart_item_id = #{cartItemId}
     </update>
 
     <update id="goodsNumAdd1">

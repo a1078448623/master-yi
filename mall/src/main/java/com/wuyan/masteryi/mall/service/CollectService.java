@@ -12,4 +12,5 @@ public interface CollectService {
     Map<String, Object> addToCollect(Integer userId, Integer goodsId);
     Map<String, Object> deleteFromCollect(Integer collectId);
     Map<String, Object> showMyCollect(Integer userId);
+    Map<String, Object> isCollect(Integer userId, Integer specId);
 }

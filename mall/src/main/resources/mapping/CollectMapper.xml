@@ -9,10 +9,20 @@
         delete from collect where collect_id = #{collectId}
     </delete>
 
+    <select id="getGoodByCollectId" resultType="java.lang.Integer">
+        select goods_id from collect where collect_id = #{collectId}
+    </select>
+
     <select id="showMyCollect" resultType="SingleCollectItem">
         select collect_id,goods.goods_id,goods.goods_name,goods.goods_cover_url,
         goods_specs.id as specsId,specs,price,collect_time
         from collect,goods,goods_specs
-        where collect.goods_id = goods_specs.id and goods_specs.goods_id = goods.goods_id
+        where collect.goods_id = goods_specs.id and goods_specs.goods_id = goods.goods_id and collect.user_id = #{userId}
+    </select>
+
+    <select id="isCollect" resultType="java.lang.Integer">
+        select collect_id
+        from collect
+        where collect.goods_id = #{specId} and collect.user_id = #{userId}
     </select>
 </mapper>

@@ -17,11 +17,15 @@
     <update id="addCollect">
         update goods set collect_num=collect_num+1 where goods_id=#{good_id}
     </update>
-
+    <update id="subCollect">
+        update goods set collect_num=collect_num-1 where goods_id=#{good_id}
+    </update>
     <select id="getGoodById" resultType="Goods">
         select * from goods where goods_id=#{good_id}
     </select>
-
+    <select id="getGoodIdBySpecId" resultType="java.lang.Integer">
+        select goods_id from goods_specs where id = #{specId}
+    </select>
     <select id="getStockPrice" resultType="java.util.HashMap">
         select id,stock,price from goods_specs where goods_id=#{good_id} and specs=#{specs}
     </select>

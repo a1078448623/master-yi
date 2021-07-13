@@ -54,7 +54,7 @@ public class GoodsController {
         return goodsService.getGoodById(good_id);
     }
     @PostMapping("/stockPrice")
-    @ApiOperation(value = "获得库存和价格",notes = "根据不同特征获得商品库存和价格")
+    @ApiOperation(value = "获得具体id，库存和价格",notes = "根据不同特征获得具体id，商品库存和价格")
     public Map<String,Object> getStockPrice(int good_id,int []specs){
         return goodsService.getStockPrice(good_id,specs);
 

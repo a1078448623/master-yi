@@ -18,4 +18,6 @@ public interface CollectMapper {
     int addToCollect(Integer userId, Integer specsId);
     int deleteFromCollect(Integer collectId);
     List<SingleCollectItem> showMyCollect(Integer userId);
+    Integer isCollect(Integer userId, Integer specId);
+    Integer getGoodByCollectId(Integer collectId);
 }
