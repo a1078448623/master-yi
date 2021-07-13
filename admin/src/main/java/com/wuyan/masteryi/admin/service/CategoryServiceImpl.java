@@ -165,4 +165,10 @@ public class CategoryServiceImpl implements CategoryService{
     public Map<String, Object> getKeyMapValue(int key_id) {
         return ResponseMsg.sendMsg(200,"查询成功",categoryMapper.getKeyMapValue(key_id));
     }
+
+    @Override
+    public Map<String, Object> addParentCate(String cateName) {
+        categoryMapper.addParentCate(cateName);
+        return ResponseMsg.sendMsg(200,"ok",null);
+    }
 }

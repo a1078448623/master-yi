@@ -20,4 +20,5 @@ public interface CategoryService {
     Map<String, Object> changeAttrKey(Integer attrKeyId, String newKeyName);
     Map<String, Object> changeAttrValue(Integer attrValueId, String newValueName);
     Map<String, Object> getKeyMapValue(int key_id);
+    Map<String,Object> addParentCate(String cateName);
 }

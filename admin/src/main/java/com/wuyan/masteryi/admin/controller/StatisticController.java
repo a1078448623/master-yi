@@ -36,4 +36,28 @@ public class StatisticController {
     public Map<String,Object> getOrderCount(){
         return statisticService.getOrderCount();
     }
+
+    @GetMapping("/monthdata")
+    @ApiOperation(value = "每月销量与订单",notes = "每月销量与订单")
+    public Map<String,Object> getMonthData(){
+        return statisticService.getMonthData();
+    }
+
+    @GetMapping("/topgoods")
+    @ApiOperation(value = "获得销量前10的商品",notes = "获得销量前10的商品")
+    public Map<String,Object> getTopGoods(){
+        return statisticService.getTopGoods();
+    }
+
+    @GetMapping("/userdata")
+    @ApiOperation(value = "用户注册时间统计",notes = "用户注册时间统计")
+    public Map<String,Object> getUserData(){
+        return statisticService.getUserCount();
+    }
+
+    @GetMapping("/catedata")
+    @ApiOperation(value = "分类数据统计",notes = "分类数据统计")
+    public Map<String,Object> getCateData(){
+        return statisticService.getCateCount();
+    }
 }

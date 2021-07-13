@@ -6,8 +6,10 @@ package com.wuyan.masteryi.admin.service;
  *date:2021/7/11 16:24
  */
 
+import com.wuyan.masteryi.admin.entity.MonthlyData;
 import com.wuyan.masteryi.admin.entity.OrderCount;
 import com.wuyan.masteryi.admin.entity.Statistic;
+import com.wuyan.masteryi.admin.entity.UserCateCount;
 import com.wuyan.masteryi.admin.mapper.StatisticMapper;
 import com.wuyan.masteryi.admin.utils.ResponseMsg;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +41,36 @@ public class StatisticServiceImpl implements StatisticService{
             orderCount1.setDate(null);
         }
         return ResponseMsg.sendMsg(200,"ok",orderCount);
+    }
+
+    @Override
+    public Map<String, Object> getMonthData() {
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM");
+        List<MonthlyData> monthData = statisticMapper.getMonthData();
+//        for(MonthlyData monthlyData:monthData){
+//            monthlyData.setF_month(sdf.format(monthlyData.getCreateMonth()));
+//        }
+        return ResponseMsg.sendMsg(200,"ok",monthData);
+    }
+
+    @Override
+    public Map<String, Object> getTopGoods() {
+        return ResponseMsg.sendMsg(200,"ok",statisticMapper.getTopGoods());
+    }
+
+    @Override
+    public Map<String, Object> getUserCount() {
+        SimpleDateFormat sdf=new SimpleDateFormat("MM-dd");
+        List<UserCateCount> userCateCount = statisticMapper.getUserCount();
+        for(UserCateCount userCateCount1 : userCateCount){
+            userCateCount1.setF_time(sdf.format(userCateCount1.getTime()));
+            userCateCount1.setTime(null);
+        }
+        return ResponseMsg.sendMsg(200,"ok", userCateCount);
+    }
+
+    @Override
+    public Map<String, Object> getCateCount() {
+        return ResponseMsg.sendMsg(200,"OK",statisticMapper.getCateCount());
     }
 }

@@ -6,7 +6,7 @@
     </select>
 
     <insert id="addUser">
-        insert into user values (null,#{userName},#{userPwd},#{userImgUrl},#{address},#{phoneNum})
+        insert into user values (null,#{userName},#{userPwd},#{userImgUrl},#{address},#{phoneNum},default)
     </insert>
 
     <delete id="deleteUser">

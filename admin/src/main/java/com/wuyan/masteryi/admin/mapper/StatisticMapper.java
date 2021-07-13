@@ -6,8 +6,7 @@ package com.wuyan.masteryi.admin.mapper;
  *date:2021/7/11 16:25
  */
 
-import com.wuyan.masteryi.admin.entity.OrderCount;
-import com.wuyan.masteryi.admin.entity.Statistic;
+import com.wuyan.masteryi.admin.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -23,4 +22,8 @@ public interface StatisticMapper {
     int getSalesNum();
     int getVisitorNum();
     List<OrderCount> getOrderCount();
+    List<MonthlyData> getMonthData();
+    List<Goods> getTopGoods();
+    List<UserCateCount> getUserCount();
+    List<UserCateCount> getCateCount();
 }

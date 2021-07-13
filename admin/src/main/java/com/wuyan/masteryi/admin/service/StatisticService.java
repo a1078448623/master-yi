@@ -12,4 +12,9 @@ public interface StatisticService {
 
     Map<String,Object> getBasicData();
     Map<String,Object> getOrderCount();
+    Map<String,Object> getMonthData();
+    Map<String,Object> getTopGoods();
+    Map<String,Object> getUserCount();
+    Map<String,Object> getCateCount();
+
 }

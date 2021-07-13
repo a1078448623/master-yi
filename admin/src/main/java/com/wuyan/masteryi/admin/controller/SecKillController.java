@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 @RestController
@@ -29,5 +31,14 @@ public class SecKillController {
     @ApiOperation(value = "删除秒杀商品",notes = "删除秒杀商品")
     public Map<String, Object> testRedis(Integer prodId) {
         return secKillService.rmSkGoods(prodId);
+    }
+
+    @PostMapping("/testdate")
+    public void testDate(String begin,String end){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        System.out.println(begin);
+
+        System.out.println(sdf.format(Long.valueOf(begin)));
+        System.out.println(sdf.format(Long.valueOf(end)));
     }
 }

@@ -99,4 +99,10 @@ public class CategoryController {
     public Map<String,Object> getKeyValueMap(int key_id){
         return categoryService.getKeyMapValue(key_id);
     }
+
+    @PostMapping("/addparent")
+    @ApiOperation(value = "添加新父级分类",notes = "添加新父级分类")
+    public Map<String,Object> addPrentCate(String cateName){
+        return categoryService.addParentCate(cateName);
+    }
 }

@@ -57,7 +57,9 @@
     </select>
 
     <select id="getValueName" resultType="GoodsAttrValue">
-        select * from goods_attr_value where id=#{id}
+        select goods_attr_value.id,value_name,goods_attr_key.key_name,attr_key_id
+        from goods_attr_value,goods_attr_key
+        where goods_attr_value.id=#{id} and attr_key_id=goods_attr_key.id
     </select>
 
     <select id="getSpecsById" resultType="java.lang.String">
@@ -78,4 +80,10 @@
     <update id="changeSpecs">
         update goods_specs set specs=#{specs} where id=#{id}
     </update>
+    <select id="getGoodBySpecsId" resultType="com.wuyan.masteryi.admin.entity.SingleOrderItem">
+        select distinct goods.goods_id,goods_name,goods_information,goods_cover_url,id
+        from goods,goods_specs
+        where goods_specs.id=#{id} and
+            goods_specs.goods_id=goods.goods_id
+    </select>
 </mapper>

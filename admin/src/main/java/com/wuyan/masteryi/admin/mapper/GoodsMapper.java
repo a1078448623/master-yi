@@ -29,4 +29,5 @@ public interface GoodsMapper {
     int getKeyId(int id);
     Map<String,Object> getStockPrice(int good_id, String specs);
     void changeSpecs(int id, String specs);
+    SingleOrderItem getGoodBySpecsId(int id);
 }

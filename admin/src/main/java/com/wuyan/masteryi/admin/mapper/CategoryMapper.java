@@ -36,4 +36,5 @@ public interface CategoryMapper {
     void delSpecsBySpecs(String sp);
     List<Integer> getGoodIdsByCateId(int categoryId);
     void delSpecsById(int id);
+    void addParentCate(String cateName);
 }

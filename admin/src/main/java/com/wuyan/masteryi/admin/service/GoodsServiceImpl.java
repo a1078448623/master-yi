@@ -1,9 +1,6 @@
 package com.wuyan.masteryi.admin.service;
 
-import com.wuyan.masteryi.admin.entity.AttrItem;
-import com.wuyan.masteryi.admin.entity.GoodSpecs;
-import com.wuyan.masteryi.admin.entity.Goods;
-import com.wuyan.masteryi.admin.entity.GoodsAttrValue;
+import com.wuyan.masteryi.admin.entity.*;
 import com.wuyan.masteryi.admin.mapper.CategoryMapper;
 import com.wuyan.masteryi.admin.mapper.GoodsMapper;
 import com.wuyan.masteryi.admin.utils.ResponseMsg;
@@ -42,25 +39,30 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public Map<String, Object> getAllSpecs(Integer goods_id) {
-        List<Map> res = new ArrayList<>();
-        List<GoodSpecs> speces = goodsMapper.getAllSpecs(goods_id);
-        for(GoodSpecs spec:speces) {
-            Map<String,Object> perRes = new HashMap<>();
-            perRes.put("id",spec.getId());
-            perRes.put("goodId",spec.getGoodsId());
-            Map<String,String> specDetail = new HashMap<>();
-            String s = spec.getSpecs();
-            String[] split = s.split(",");
-            for(String ss:split){
-                specDetail.put(goodsMapper.getKeyName(Integer.parseInt(ss.split(":")[0])), goodsMapper.getValueName(Integer.parseInt(ss.split(":")[1])).getValueName());
+    public Map<String, Object> getAllSpecs(Integer []goods_id) {
+        List<List<Map>> result=new ArrayList<>();
+        for(int gid :goods_id)
+        {
+            List<Map> res = new ArrayList<>();
+            List<GoodSpecs> speces = goodsMapper.getAllSpecs(gid);
+            for (GoodSpecs spec : speces) {
+                Map<String, Object> perRes = new HashMap<>();
+                perRes.put("id", spec.getId());
+                perRes.put("goodId", spec.getGoodsId());
+                Map<String, String> specDetail = new HashMap<>();
+                String s = spec.getSpecs();
+                String[] split = s.split(",");
+                for (String ss : split) {
+                    specDetail.put(goodsMapper.getKeyName(Integer.parseInt(ss.split(":")[0])), goodsMapper.getValueName(Integer.parseInt(ss.split(":")[1])).getValueName());
+                }
+                perRes.put("specDetail", specDetail);
+                perRes.put("price", spec.getPrice());
+                perRes.put("stock", spec.getStock());
+                res.add(perRes);
             }
-            perRes.put("specDetail",specDetail);
-            perRes.put("price",spec.getPrice());
-            perRes.put("stock",spec.getStock());
-            res.add(perRes);
+            result.add(res);
         }
-        return ResponseMsg.sendMsg(200, "成功获取所有商品信息", res);
+        return ResponseMsg.sendMsg(200, "成功获取所有商品信息", result);
     }
 
     @Override
@@ -139,11 +141,11 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public Map<String, Object> getSpecsDesc(int id) {
         String s=goodsMapper.getSpecsById(id);
-        Map<String, GoodsAttrValue> res=new HashMap<>();
+        Map<String, String> res=new HashMap<>();
         String[] split = s.split(",");
         for(String ss:split){
             res.put(goodsMapper.getKeyName(Integer.parseInt(ss.split(":")[0])),
-                    goodsMapper.getValueName(Integer.parseInt(ss.split(":")[1])));
+                    goodsMapper.getValueName(Integer.parseInt(ss.split(":")[1])).getValueName());
         }
         return ResponseMsg.sendMsg(200,"查询成功",res);
     }
@@ -211,5 +213,12 @@ public class GoodsServiceImpl implements GoodsService {
         goodsMapper.changeSpecs(id,res);
 
         return ResponseMsg.sendMsg(200,"ok","ok");
+    }
+
+    @Override
+    public Map<String, Object> getGoodBySpecsId(int id) {
+        SingleOrderItem goodBySpecsId = goodsMapper.getGoodBySpecsId(id);
+        goodBySpecsId.setDescription((Map<String, String>) getSpecsDesc(goodBySpecsId.getId()).get("data"));
+        return ResponseMsg.sendMsg(200,"ok",goodBySpecsId);
     }
 }

@@ -73,4 +73,7 @@
     <delete id="delSpecsById">
         delete from goods_specs where id=#{id}
     </delete>
+    <insert id="addParentCate">
+        insert into category values (null,null,#{cateName})
+    </insert>
 </mapper>

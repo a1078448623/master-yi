@@ -20,7 +20,7 @@ public interface GoodsService {
     Map<String, Object> getAllGoods();
     Map<String, Object> getParentCategoryGoods(Integer parentId);
     Map<String, Object> getChildCategoryGoods(Integer childId);
-    Map<String, Object> getAllSpecs(Integer goods_id);
+    Map<String, Object> getAllSpecs(Integer []goods_id);
     Map<String, Object> addGood(String goodsName, String goodsInformation, Integer goodsCategoryId,
                 String goodsCoverUrl, Integer collectNum, Integer sellNum,int [] specs,float primaryPrice);
     Map<String, Object> addSpecs(Integer goodsId, int[] specs, Integer stock, float price);
@@ -32,4 +32,6 @@ public interface GoodsService {
     Map<String,Object> getGoodTypes(int good_id);
     Map<String,Object> getValuesByKey(int []key_id);
     Map<String, Object> changeSpecs(int id, int []specs);
+    Map<String,Object> getGoodBySpecsId(int id);
+
 }
