@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuyan.masteryi.admin.mapper.StatisticMapper">
+    <select id="getUserNum" resultType="java.lang.Integer">
+        select count(*) as users from user;
+    </select>
+    <select id="getOrderNum" resultType="java.lang.Integer">
+        select count(*) as orders from `order` where order_status=2;
+    </select>
+    <select id="getEraningNum" resultType="java.lang.Float">
+        select sum(order_total_price) as eranings from `order` where order_status=2;
+    </select>
+    <select id="getSalesNum" resultType="java.lang.Integer">
+        select sum(sell_num) as sales from goods;
+    </select>
+    <select id="getVisitorNum" resultType="java.lang.Integer">
+        select data_val as visitors from sys_data where id=1;
+    </select>
+    <select id="getOrderCount" resultType="OrderCount">
+            SELECT DATE_FORMAT(create_time,'%Y-%m-%d') AS date , COUNT(*) AS count ,SUM(order_total_price) AS totalMoney
+        FROM `order` WHERE (order_status=2 OR order_status=3)
+                       AND DATE(create_time)>DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+        GROUP BY  date
+        ORDER BY date;
+    </select>
+    <select id="getMonthData" resultType="MonthlyData">
+        SELECT DATE_FORMAT(create_time, '%Y-%m') AS createMonth,COUNT(DISTINCT `order`.order_id) AS COUNT ,SUM(goods_num) AS sales
+        FROM `order`,orderiterm WHERE (order_status=2 OR order_status=3) AND `order`.`order_id`=orderiterm.`order_id`
+        GROUP BY createMonth ORDER BY createMonth DESC LIMIT 12;
+    </select>
+    <select id="getTopGoods" resultType="Goods">
+        SELECT * FROM goods ORDER BY sell_num DESC LIMIT 10
+    </select>
+    <select id="getUserCount" resultType="UserCateCount">
+        SELECT DATE_FORMAT(register_time,'%Y-%m-%d') AS time,COUNT(*) AS count
+        FROM USER
+        WHERE DATE(register_time)>DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+        GROUP BY time
+        ORDER BY time
+    </select>
+    <select id="getCateCount" resultType="UserCateCount">
+        SELECT category_name ,SUM(sell_num) AS sales FROM goods,category
+        WHERE goods_category_id=category_id GROUP BY category_name ORDER BY sales LIMIT 5
+    </select>
+</mapper>

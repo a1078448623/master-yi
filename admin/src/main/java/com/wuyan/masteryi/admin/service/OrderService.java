@@ -16,4 +16,5 @@ public interface OrderService {
     Map<String,Object> getOneUserOrder(Integer userId);
     Map<String,Object> getOrderItem(Integer orderId);
     Map<String,Object> dealRefund(Integer orderId, Boolean agree);
+    Map<String,Object> delOrder(int orderId);
 }

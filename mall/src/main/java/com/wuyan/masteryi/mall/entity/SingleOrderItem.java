@@ -20,4 +20,5 @@ public class SingleOrderItem {
     private int goodsNum;
     private float singlePrice;
     private Map<String,String> description;
+    private int orderId;
 }

@@ -15,4 +15,12 @@ public class AttrItem {
     private String keyName;
     private String valueId;
     private String valueName;
+
+    public AttrItem(Integer categoryId, String keyId, String keyName, String valueId, String valueName) {
+        this.categoryId = categoryId;
+        this.keyId = keyId;
+        this.keyName = keyName;
+        this.valueId = valueId;
+        this.valueName = valueName;
+    }
 }

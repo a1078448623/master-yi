@@ -45,4 +45,9 @@ public class CategoryServiceImpl implements CategoryService{
         }
         return ResponseMsg.sendMsg(200, "成功获取分类信息", data);
     }
+
+    @Override
+    public Map<String, Object> getCategoryNameById(Integer cid) {
+        return ResponseMsg.sendMsg(200, "成功获取分类信息", categoryMapper.getCategoryNameById(cid));
+    }
 }

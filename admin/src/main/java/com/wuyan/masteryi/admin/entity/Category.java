@@ -13,4 +13,10 @@ public class Category {
     private Integer categoryId;
     private Integer parentCategoryId;
     private String categoryName;
+
+    public Category(Integer categoryId, Integer parentCategoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.parentCategoryId = parentCategoryId;
+        this.categoryName = categoryName;
+    }
 }

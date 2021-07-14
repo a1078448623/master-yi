@@ -21,6 +21,7 @@ public interface GoodsMapper {
     int addSell(int good_id, int num);
     int addSellByOrderId(int orderId);
     int addCollect(int good_id);
+    void subCollect(int good_id);
     Goods getGoodById(int good_id);
     Map<String,Object> getStockPrice(int good_id,String specs);
     List<String> getSpecs(int good_id);
@@ -31,4 +32,7 @@ public interface GoodsMapper {
     void stockDesc(int id,int num);
     void stockAdd(int id,int num);
     List<Goods> getGoodsByType(int c_id);
+    Integer getGoodIdBySpecId(Integer specId);
+    List<Goods> searchInAllGoods(String searchName);
+    List<Goods> searchGoodsCategory(String searchName,int categoryId);
 }

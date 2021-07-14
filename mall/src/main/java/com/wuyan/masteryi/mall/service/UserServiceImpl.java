@@ -77,4 +77,16 @@ public class UserServiceImpl implements UserService{
     public String getUserId(String username) {
         return userMapper.getUserId(username);
     }
+
+    @Override
+    public Map<String, Object> getUser(Integer userId) {
+        return ResponseMsg.sendMsg(200,"没有重复",userMapper.getUser(userId));
+    }
+
+
+    @Override
+    public Map<String, Object> changeUserInfo(Integer userId, String userName, String userPwd, String phoneNum, String userAddress, String userImgUrl) {
+        userMapper.changeUserInfo(userId, userName, userPwd,phoneNum,userAddress,userImgUrl);
+        return ResponseMsg.sendMsg(200,"更改成功",1);
+    }
 }

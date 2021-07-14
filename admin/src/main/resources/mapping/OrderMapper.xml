@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wuyan.masteryi.admin.mapper.OrderMapper">
     <select id="getAllOrder" resultType="Order">
-        select * from `order`
+        select order_id,`order`.user_id,order_total_price,order_status,create_time,order_addr,order_no,user_name,phone_num from `order`,user
+    where user.user_id=`order`.user_id
     </select>
 
     <select id="getOneUserOrder" resultType="Order">
@@ -10,7 +11,7 @@
     </select>
 
     <select id="getOrderItem" resultType="SingleOrderItem">
-        select distinct goods.goods_id,goods_name,goods_information,goods_cover_url,id,goods_num,single_price
+        select distinct goods.goods_id,goods_name,goods_information,goods_cover_url,id,goods_num,single_price,orderiterm.order_id
         from goods,orderiterm,`order`,goods_specs
         where orderiterm.order_id=#{order_id} and orderiterm.goods_id=goods_specs.id and
             goods_specs.goods_id=goods.goods_id
@@ -25,5 +26,11 @@
         update `order` set order_status = 7
         where order_id = #{orderId}
     </update>
-
+    <delete id="delOrder">
+        delete from `order`where order_id=#{orderId}
+    </delete>
+    <select id="getOrderById" resultType="Order">
+        select *
+        from `order` where order_id=#{orderId};
+    </select>
 </mapper>

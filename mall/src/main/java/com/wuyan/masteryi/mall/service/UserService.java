@@ -20,4 +20,7 @@ public interface UserService {
     Map<String,Object> isNameRep(String username);
     Map<String,Object> isPhoneRep(String phoneNum);
     String getUserId(String username);
+    Map<String,Object> getUser(Integer userId);
+    Map<String,Object> changeUserInfo(Integer userId,String userName,String userPwd,String phoneNum,String userAddress, String userImgUrl);
+
 }

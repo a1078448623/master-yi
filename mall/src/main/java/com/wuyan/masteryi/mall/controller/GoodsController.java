@@ -54,7 +54,7 @@ public class GoodsController {
         return goodsService.getGoodById(good_id);
     }
     @PostMapping("/stockPrice")
-    @ApiOperation(value = "获得库存和价格",notes = "根据不同特征获得商品库存和价格")
+    @ApiOperation(value = "获得具体id，库存和价格",notes = "根据不同特征获得具体id，商品库存和价格")
     public Map<String,Object> getStockPrice(int good_id,int []specs){
         return goodsService.getStockPrice(good_id,specs);
 
@@ -75,5 +75,17 @@ public class GoodsController {
     @ApiOperation(value = "获得各分类下的商品",notes = "根据分类id获得商品")
     public Map<String,Object> getGoodsByType(int category_id){
         return goodsService.getGoodsByType(category_id);
+    }
+
+    @PostMapping("/searchallgoods")
+    @ApiOperation(value = "搜索所有商品",notes = "搜索所有商品")
+    Map<String, Object> searchInAllGoods(String searchName){
+        return goodsService.searchInAllGoods(searchName);
+    }
+
+    @PostMapping("/searchgoodspartly")
+    @ApiOperation(value = "搜索某分类下商品",notes = "搜索某分类下商品")
+    Map<String,Object> searchGoodsCategory(String searchName, int categoryId){
+        return goodsService.searchGoodsCategory(searchName,categoryId);
     }
 }

@@ -49,4 +49,9 @@ public class CollectController {
         return collectService.showMyCollect(getUidServer.getIntegerUid(token));
     }
 
+    @ApiOperation(value="获取收藏状态", notes="获取收藏状态")
+    @PostMapping("/iscollect")
+    public Map<String, Object> isCollect(Integer userId,Integer specId){
+        return collectService.isCollect(userId,specId);
+    }
 }

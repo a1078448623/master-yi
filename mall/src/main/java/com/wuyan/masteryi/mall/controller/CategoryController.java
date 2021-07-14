@@ -29,4 +29,10 @@ public class CategoryController {
     public Map<String, Object> getAllType(){
         return categoryService.getAllType();
     }
+
+    @ApiOperation(value="根据id获取分类名", notes="根据id获取分类名")
+    @PostMapping("/getcategorynamebyid")
+    public Map<String, Object> getCategoryNameById(Integer cid){
+        return categoryService.getCategoryNameById(cid);
+    }
 }

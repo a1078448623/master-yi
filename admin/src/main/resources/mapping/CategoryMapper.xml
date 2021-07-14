@@ -22,8 +22,8 @@
     </update>
 
     <select id="getAllAttrItem" resultType="AttrItem">
-        select goods_attr_key.category_id,goods_attr_key.id,goods_attr_key.key_name,goods_attr_value.id,goods_attr_value.value_name
-        from goods_attr_key,goods_attr_value where goods_attr_key.id = goods_attr_value.attr_key_id and category_id = #{categoryId}
+        select goods_attr_key.category_id,goods_attr_key.id as key_id,goods_attr_key.key_name,goods_attr_value.id as value_id,goods_attr_value.value_name
+        from goods_attr_key,goods_attr_value where goods_attr_key.id = goods_attr_value.attr_key_id and goods_attr_key.id=#{id}
     </select>
 
     <insert id="addAttrKey">
@@ -35,8 +35,9 @@
     </insert>
 
     <delete id="deleteAttrKey">
+        delete from goods_attr_value where attr_key_id = #{attrKeyId};
         delete from goods_attr_key where id = #{attrKeyId};
-        delete from goods_attr_value where attr_key_id = #{attrKeyId}
+
     </delete>
 
     <delete id="deleteAttrValue">
@@ -50,4 +51,29 @@
     <update id="changeAttrValue">
         update goods_attr_value set value_name = #{newValueName} where id = #{attrValueId}
     </update>
+    <select id="getKeyMapValue" resultType="AttrItem">
+        select goods_attr_key.category_id,goods_attr_key.id as key_id,goods_attr_key.key_name,goods_attr_value.id as value_id,goods_attr_value.value_name
+        from goods_attr_key,goods_attr_value where goods_attr_key.id = goods_attr_value.attr_key_id and attr_key_id=#{key_id}
+    </select>
+    <select id="getKeyIds" resultType="java.lang.Integer">
+        select id from goods_attr_key where category_id=#{cate_id}
+    </select>
+    <select id="getNameById" resultType="java.lang.String">
+        select key_name from goods_attr_key where id=#{id}
+    </select>
+    <select id="fromValGetKey" resultType="java.lang.Integer">
+        select attr_key_id from goods_attr_value where id=#{valId}
+    </select>
+    <delete id="delSpecsBySpecs">
+        delete from goods_specs where find_in_set(#{sp},specs)
+    </delete>
+    <select id="getGoodIdsByCateId" resultType="java.lang.Integer">
+        select goods_id from goods where goods_category_id=#{categoryId}
+    </select>
+    <delete id="delSpecsById">
+        delete from goods_specs where id=#{id}
+    </delete>
+    <insert id="addParentCate">
+        insert into category values (null,null,#{cateName})
+    </insert>
 </mapper>

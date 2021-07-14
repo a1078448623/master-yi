@@ -15,8 +15,7 @@ public interface GoodsMapper {
     List<Integer> getChildCategoryByParentId(Integer parentId);
     List<Goods> getChildCategoryGoods(Integer childId);
     List<GoodSpecs> getAllSpecs(Integer goods_id);
-    int addGood(String goodsName, String goodsInformation, Integer goodsCategoryId,
-                            String goodsCoverUrl, Integer collectNum, Integer sellNum);
+    int addGood(Goods goods);
     int addSpecs(Integer goodsId, String specs, Integer stock, float price);
     int changeStock(Integer newStock, Integer goodSpecsId);
     int changePrice(float newPrice, Integer goodSpecsId);
@@ -31,4 +30,6 @@ public interface GoodsMapper {
     int getKeyId(int id);
     float getPrice(int id);
     Map<String,Object> getStockPrice(int good_id, String specs);
+    void changeSpecs(int id, String specs);
+    SingleOrderItem getGoodBySpecsId(int id);
 }

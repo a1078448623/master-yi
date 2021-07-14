@@ -7,7 +7,7 @@
 <!--       where orderiterm.goods_id=goods_specs.id and goods.goods_id=goods_specs.goods_id and orderiterm.order_id=#{order_id}-->
 <!--    </select>-->
     <select id="getOrderGoods" resultType="SingleOrderItem">
-        select distinct goods.goods_id,goods_name,goods_information,goods_cover_url,id,goods_num,single_price
+        select distinct goods.goods_id,goods_name,goods_information,goods_cover_url,id,goods_num,single_price,orderiterm.order_id
         from goods,orderiterm,`order`,goods_specs
         where orderiterm.order_id=#{order_id} and orderiterm.goods_id=goods_specs.id and
               goods_specs.goods_id=goods.goods_id

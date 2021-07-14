@@ -138,4 +138,20 @@ public class GoodsServiceImpl implements GoodsService{
         if(goodsList==null) return ResponseMsg.sendMsg(100,"该分类下没有商品",null);
         else return ResponseMsg.sendMsg(200,"查询成功",goodsList);
     }
+
+    @Override
+    public Map<String, Object> searchInAllGoods(String searchName) {
+        List<Goods> goodsList = goodsMapper.searchInAllGoods(searchName);
+        if(goodsList.size()==0) return ResponseMsg.sendMsg(100,"没有商品",null);
+        else return ResponseMsg.sendMsg(200,"查询成功",goodsList);
+
+    }
+
+    @Override
+    public Map<String, Object> searchGoodsCategory(String searchName, int categoryId) {
+        List<Goods> goodsList = goodsMapper.searchGoodsCategory(searchName, categoryId);
+
+        if(goodsList.size()==0) return ResponseMsg.sendMsg(100,"没有商品",null);
+        else return ResponseMsg.sendMsg(200,"查询成功",goodsList);
+    }
 }

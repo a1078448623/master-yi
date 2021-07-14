@@ -19,7 +19,10 @@ public class Order {
     private Date createTime;
     private String address;
     private String orderNo;
-    //private String formate_time;
+    private String formate_time;
+    private String userName;
+    private String statu;
+    private String phoneNum;
 
     public Order(Integer orderId, Integer userId, float orderTotalPrice, Integer orderStatus, Date createTime, String address, String orderNo) {
         this.orderId = orderId;

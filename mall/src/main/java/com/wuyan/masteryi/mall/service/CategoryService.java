@@ -13,4 +13,5 @@ import java.util.Map;
 
 public interface CategoryService {
     Map<String, Object> getAllType();
+    Map<String, Object> getCategoryNameById(Integer cid);
 }

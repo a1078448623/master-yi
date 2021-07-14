@@ -2,6 +2,7 @@ package com.wuyan.masteryi.admin.mapper;
 
 import com.wuyan.masteryi.admin.entity.AttrItem;
 import com.wuyan.masteryi.admin.entity.Category;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -28,4 +29,12 @@ public interface CategoryMapper {
     int deleteAttrValue(Integer attrValueId);
     int changeAttrKey(Integer attrKeyId, String newKeyName);
     int changeAttrValue(Integer attrValueId, String newValueName);
+    List<AttrItem> getKeyMapValue(int key_id);
+    List<Integer> getKeyIds(int cate_id);
+    String getNameById(int id);
+    int fromValGetKey(int valId);
+    void delSpecsBySpecs(String sp);
+    List<Integer> getGoodIdsByCateId(int categoryId);
+    void delSpecsById(int id);
+    void addParentCate(String cateName);
 }

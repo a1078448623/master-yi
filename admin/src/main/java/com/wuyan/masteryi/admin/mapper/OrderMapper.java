@@ -23,4 +23,6 @@ public interface OrderMapper {
     //List<OrderItem> getOrderItem(Integer orderId);
     int agreeRefund(Integer orderId);
     int disagreeRefund(Integer orderId);
+    int delOrder(int orderId);
+    Order getOrderById(int orderId);
 }

@@ -52,7 +52,7 @@ public class UserController {
         return userService.setPhoneNum(getUid.getintUid(token),phoneNum);
     }
 
-    @GetMapping("/setImg")
+    @PostMapping("/setImg")
     @ApiOperation(value = "设置头像",notes = "设置头像")
     public Map<String, Object> setImg(@CookieValue(value = "token",
                                         defaultValue = "Atta") String token, String imgurl){
@@ -60,17 +60,26 @@ public class UserController {
         return userService.setImg(getUid.getintUid(token),imgurl);
     }
 
-    @GetMapping("/isNameRep")
+    @PostMapping("/isNameRep")
     @ApiOperation(value = "用户名是否重复",notes = "检测用户名是否重复")
     public Map<String, Object> isNameRep(String username){
         return userService.isNameRep(username);
     }
-
-    @GetMapping("/isPhoneRep")
+    @PostMapping("/isPhoneRep")
     @ApiOperation(value = "手机号是否重复",notes = "检测手机号是否重复")
     public Map<String, Object> isPhoneRep(String phoneNum){
         return userService.isPhoneRep(phoneNum);
     }
 
+    @PostMapping("/getuser")
+    @ApiOperation(value = "获取用户信息",notes = "获取用户信息")
+    public Map<String, Object> getUser(Integer userId){
+        return userService.getUser(userId);
+    }
 
+    @PostMapping("/changeuserinfo")
+    @ApiOperation(value = "获取用户信息",notes = "获取用户信息")
+    public Map<String, Object> changeUserInfo(Integer userId,String userName,String userPwd,String phoneNum,String userAddress, String userImgUrl){
+        return userService.changeUserInfo(userId,userName,userPwd,phoneNum,userAddress,userImgUrl);
+    }
 }

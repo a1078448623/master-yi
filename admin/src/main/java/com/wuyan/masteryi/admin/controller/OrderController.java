@@ -48,4 +48,10 @@ public class OrderController {
         return orderService.dealRefund(orderId, agree);
     }
 
+    @PostMapping("/delorder")
+    @ApiOperation(value = "删除某订单",notes = "删除某订单")
+    public Map<String,Object> delOrder(int orderId){
+        return orderService.delOrder(orderId);
+    }
+
 }
