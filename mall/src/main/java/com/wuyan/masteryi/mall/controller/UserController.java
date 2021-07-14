@@ -26,6 +26,9 @@ public class UserController {
     @Autowired
     GetUidServerImpl getUid;
 
+    @Autowired
+    GetUidServerImpl getUidServer;
+
     @PostMapping("/queryUser")
     @ApiOperation(value = "查找用户",notes = "通过用户名和密码查找用户")
     public Map<String, Object> getUserByNP(String username, String password){
@@ -73,13 +76,15 @@ public class UserController {
 
     @PostMapping("/getuser")
     @ApiOperation(value = "获取用户信息",notes = "获取用户信息")
-    public Map<String, Object> getUser(Integer userId){
-        return userService.getUser(userId);
+    public Map<String, Object> getUser(@CookieValue(value = "token",
+            defaultValue = "Atta") String token){
+        return userService.getUser(getUidServer.getIntegerUid(token));
     }
 
     @PostMapping("/changeuserinfo")
     @ApiOperation(value = "获取用户信息",notes = "获取用户信息")
-    public Map<String, Object> changeUserInfo(Integer userId,String userName,String userPwd,String phoneNum,String userAddress, String userImgUrl){
-        return userService.changeUserInfo(userId,userName,userPwd,phoneNum,userAddress,userImgUrl);
+    public Map<String, Object> changeUserInfo(@CookieValue(value = "token",
+            defaultValue = "Atta") String token,String userName,String userPwd,String phoneNum,String userAddress, String userImgUrl){
+        return userService.changeUserInfo(getUidServer.getIntegerUid(token),userName,userPwd,phoneNum,userAddress,userImgUrl);
     }
 }

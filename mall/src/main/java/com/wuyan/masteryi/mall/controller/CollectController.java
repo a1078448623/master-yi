@@ -51,7 +51,8 @@ public class CollectController {
 
     @ApiOperation(value="获取收藏状态", notes="获取收藏状态")
     @PostMapping("/iscollect")
-    public Map<String, Object> isCollect(Integer userId,Integer specId){
-        return collectService.isCollect(userId,specId);
+    public Map<String, Object> isCollect(@CookieValue(value = "token",
+            defaultValue = "Atta") String token,Integer specId){
+        return collectService.isCollect(getUidServer.getintUid(token),specId);
     }
 }
