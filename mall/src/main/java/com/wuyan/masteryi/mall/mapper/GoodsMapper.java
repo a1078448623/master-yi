@@ -33,4 +33,6 @@ public interface GoodsMapper {
     void stockAdd(int id,int num);
     List<Goods> getGoodsByType(int c_id);
     Integer getGoodIdBySpecId(Integer specId);
+    List<Goods> searchInAllGoods(String searchName);
+    List<Goods> searchGoodsCategory(String searchName,int categoryId);
 }

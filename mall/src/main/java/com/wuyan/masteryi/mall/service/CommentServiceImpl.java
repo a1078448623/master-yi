@@ -27,7 +27,7 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public Map<String, Object> getCommentsByGoodId(int goodId) {
         List<Comment> commentsByGoodId = commentMapper.getCommentsByGoodId(goodId);
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy MM dd hh:mm");
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm");
 
         for(Comment comment:commentsByGoodId){
             List<Integer> specIdByCom = commentMapper.getSpecIdByCom(comment.getInOrderId(), goodId);
@@ -58,7 +58,7 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public Map<String, Object> getCommentsByComId(int comId) {
         List<Comment> commentsByComId = commentMapper.getCommentsByComId(comId);
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy MM dd hh:mm");
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm");
         for(Comment comment:commentsByComId){
             Map<String, String> comUserMsg = commentMapper.getComUserMsg(comment.getReUserId());
             comment.setUserImg(comUserMsg.get("user_img_url"));

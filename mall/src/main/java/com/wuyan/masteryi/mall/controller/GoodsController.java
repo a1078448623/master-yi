@@ -76,4 +76,16 @@ public class GoodsController {
     public Map<String,Object> getGoodsByType(int category_id){
         return goodsService.getGoodsByType(category_id);
     }
+
+    @PostMapping("/searchallgoods")
+    @ApiOperation(value = "搜索所有商品",notes = "搜索所有商品")
+    Map<String, Object> searchInAllGoods(String searchName){
+        return goodsService.searchInAllGoods(searchName);
+    }
+
+    @PostMapping("/searchgoodspartly")
+    @ApiOperation(value = "搜索某分类下商品",notes = "搜索某分类下商品")
+    Map<String,Object> searchGoodsCategory(String searchName, int categoryId){
+        return goodsService.searchGoodsCategory(searchName,categoryId);
+    }
 }

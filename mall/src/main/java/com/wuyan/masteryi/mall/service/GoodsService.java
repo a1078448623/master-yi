@@ -20,5 +20,7 @@ public interface GoodsService {
     Map<String,Object> getGoodTypes(int good_id);
     Map<String,Object> getSpecsDesc(int id);
     Map<String,Object> getGoodsByType(int category_id);
+    Map<String,Object> searchInAllGoods(String searchName);
+    Map<String,Object> searchGoodsCategory(String searchName,int categoryId);
 
 }
