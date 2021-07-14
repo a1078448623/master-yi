@@ -4,4 +4,5 @@ import java.util.Map;
 
 public interface SecKillService {
     Map<String,Object> doSecKill(String uid, String prodid);
+    Map<String,Object> getAllSk();
 }

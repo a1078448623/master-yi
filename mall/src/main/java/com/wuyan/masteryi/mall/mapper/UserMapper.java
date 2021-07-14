@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 public interface UserMapper {
     User getUserByNP(String username,String password);
     void setAddr(int u_id,String address);
+    String getAddr (int u_id);
     void setPhoneNum(int u_id,String phoneNum);
     int addUser(String username,String password);
     void setImg(int u_id,String imgurl);

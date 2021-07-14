@@ -72,5 +72,11 @@
     <select id="getStockPrice" resultType="java.util.HashMap">
         select id,stock,price from goods_specs where goods_id=#{good_id} and specs=#{specs}
     </select>
+    <select id="getGoodById" resultType="Goods">
+        select * from goods where goods_id=#{good_id}
+    </select>
 
+    <select id="getPrice" resultType="float">
+        select price from goods_specs where id=#{id}
+    </select>
 </mapper>

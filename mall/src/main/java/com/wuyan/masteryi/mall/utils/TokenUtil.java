@@ -52,4 +52,19 @@ public class TokenUtil {
         }
         return true;
     }
+
+    public static int getUid(String token){
+        try {
+            JWTVerifier jwtVerifier=JWT.require(Algorithm.HMAC256(TOKEN_SECRET)).withIssuer("auth0").build();//创建token验证器
+            DecodedJWT decodedJWT=jwtVerifier.verify(token);
+            System.out.println("认证通过：");
+            String userId = decodedJWT.getClaim("userId").asString();
+            System.out.println("userId: " + decodedJWT.getClaim("userId").asString());
+            System.out.println("过期时间：      " + decodedJWT.getExpiresAt());
+            return Integer.parseInt(userId);
+        } catch (IllegalArgumentException | JWTVerificationException e) {
+            //抛出错误即为验证不通过
+            return -1;
+        }
+    }
 }

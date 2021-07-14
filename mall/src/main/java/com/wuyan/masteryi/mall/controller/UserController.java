@@ -6,14 +6,12 @@ package com.wuyan.masteryi.mall.controller;
  *date:2021/7/6 14:32
  */
 
+import com.wuyan.masteryi.mall.service.GetUidServerImpl;
 import com.wuyan.masteryi.mall.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -24,6 +22,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    GetUidServerImpl getUid;
 
     @PostMapping("/queryUser")
     @ApiOperation(value = "查找用户",notes = "通过用户名和密码查找用户")
@@ -39,26 +40,32 @@ public class UserController {
 
     @PostMapping("/setAddr")
     @ApiOperation(value = "设置地址",notes = "设置地址")
-    public Map<String, Object> setAddr(int u_id, String address){
-        return userService.setAddr(u_id,address);
+    public Map<String, Object> setAddr(@CookieValue(value = "token",
+            defaultValue = "Atta") String token, String address){
+        return userService.setAddr(getUid.getintUid(token),address);
     }
 
     @PostMapping("/setPhone")
     @ApiOperation(value = "设置手机号",notes = "设置手机号")
-    public Map<String, Object> setPhoneNum(int u_id, String phoneNum) {
-        return userService.setPhoneNum(u_id,phoneNum);
+    public Map<String, Object> setPhoneNum(@CookieValue(value = "token",
+            defaultValue = "Atta") String token, String phoneNum) {
+        return userService.setPhoneNum(getUid.getintUid(token),phoneNum);
     }
 
     @GetMapping("/setImg")
     @ApiOperation(value = "设置头像",notes = "设置头像")
-    public Map<String, Object> setImg(int u_id, String imgurl){
-        return userService.setImg(u_id,imgurl);
+    public Map<String, Object> setImg(@CookieValue(value = "token",
+                                        defaultValue = "Atta") String token, String imgurl){
+
+        return userService.setImg(getUid.getintUid(token),imgurl);
     }
+
     @GetMapping("/isNameRep")
     @ApiOperation(value = "用户名是否重复",notes = "检测用户名是否重复")
     public Map<String, Object> isNameRep(String username){
         return userService.isNameRep(username);
     }
+
     @GetMapping("/isPhoneRep")
     @ApiOperation(value = "手机号是否重复",notes = "检测手机号是否重复")
     public Map<String, Object> isPhoneRep(String phoneNum){

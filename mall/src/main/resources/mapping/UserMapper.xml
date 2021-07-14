@@ -29,4 +29,8 @@
     <select id="getUserId" resultType="String">
             select user_id from user where user_name=#{userName}
     </select>
+
+    <select id="getAddr" resultType="String">
+            select address from user where user_id=#{u_id}
+    </select>
 </mapper>

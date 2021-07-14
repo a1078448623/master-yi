@@ -20,7 +20,7 @@ public class JedisPoolUtil {
 					poolConfig.setMaxWaitMillis(100*1000);
 					poolConfig.setBlockWhenExhausted(true);
 					poolConfig.setTestOnBorrow(true);  // ping  PONG
-				 
+
 					jedisPool = new JedisPool(poolConfig, "49.232.159.181", 6379, 60000 );
 				}
 			}
@@ -28,10 +28,6 @@ public class JedisPoolUtil {
 		return jedisPool;
 	}
 
-//	public static void release(JedisPool jedisPool, Jedis jedis) {
-//		if (null != jedis) {
-//			jedisPool.returnResource(jedis);
-//		}
-//	}
+
 
 }

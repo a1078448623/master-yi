@@ -4,12 +4,13 @@ import com.wuyan.masteryi.admin.service.SecKillService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+//import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,8 +22,8 @@ public class SecKillController {
 
     @PostMapping("/addSkGoods")
     @ApiOperation(value = "添加秒杀商品",notes = "添加秒杀商品")
-    public Map<String, Object> addSkGoods(Integer prodId, Integer stock){
-        return secKillService.addSkGoods(prodId, stock);
+    public Map<String, Object> addSkGoods(int[] prodId, int[] stock, int[] price, String bDate, String eDate){
+        return secKillService.addSkGoods(prodId, stock, price, bDate, eDate);
     }
 
     @PostMapping("/rmSkGoods")
