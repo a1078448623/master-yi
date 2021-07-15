@@ -6,6 +6,7 @@ package com.wuyan.masteryi.mall.mapper;
  *date:2021/7/6 18:30
  */
 
+import com.wuyan.masteryi.mall.entity.GoodSpecs;
 import com.wuyan.masteryi.mall.entity.GoodsAttrValue;
 import com.wuyan.masteryi.mall.entity.Goods;
 import org.apache.ibatis.annotations.Mapper;
@@ -35,4 +36,5 @@ public interface GoodsMapper {
     Integer getGoodIdBySpecId(Integer specId);
     List<Goods> searchInAllGoods(String searchName);
     List<Goods> searchGoodsCategory(String searchName,int categoryId);
+    List<GoodSpecs> getAllSpecs(Integer goods_id);
 }

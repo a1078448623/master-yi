@@ -6,6 +6,7 @@ package com.wuyan.masteryi.mall.service;
  *date:2021/7/6 15:07
  */
 
+import com.wuyan.masteryi.mall.entity.GoodSpecs;
 import com.wuyan.masteryi.mall.entity.Goods;
 import com.wuyan.masteryi.mall.entity.GoodsAttrValue;
 import com.wuyan.masteryi.mall.mapper.GoodsMapper;
@@ -153,5 +154,32 @@ public class GoodsServiceImpl implements GoodsService{
 
         if(goodsList.size()==0) return ResponseMsg.sendMsg(100,"没有商品",null);
         else return ResponseMsg.sendMsg(200,"查询成功",goodsList);
+    }
+
+    @Override
+    public Map<String, Object> getAllSpecs(Integer[] goods_id) {
+        List<List<Map>> result=new ArrayList<>();
+        for(int gid :goods_id)
+        {
+            List<Map> res = new ArrayList<>();
+            List<GoodSpecs> speces = goodsMapper.getAllSpecs(gid);
+            for (GoodSpecs spec : speces) {
+                Map<String, Object> perRes = new HashMap<>();
+                perRes.put("id", spec.getId());
+                perRes.put("goodId", spec.getGoodsId());
+                Map<String, String> specDetail = new HashMap<>();
+                String s = spec.getSpecs();
+                String[] split = s.split(",");
+                for (String ss : split) {
+                    specDetail.put(goodsMapper.getKeyName(Integer.parseInt(ss.split(":")[0])), goodsMapper.getValueName(Integer.parseInt(ss.split(":")[1])).getValueName());
+                }
+                perRes.put("specDetail", specDetail);
+                perRes.put("price", spec.getPrice());
+                perRes.put("stock", spec.getStock());
+                res.add(perRes);
+            }
+            result.add(res);
+        }
+        return ResponseMsg.sendMsg(200, "成功获取所有商品信息", result);
     }
 }

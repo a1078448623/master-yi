@@ -73,4 +73,10 @@ public class CartItemController {
             defaultValue = "Atta") String token){
         return cartItemService.showMyCart(getUidServer.getIntegerUid(token));
     }
+
+    @PostMapping("/changegoodid")
+    @ApiOperation(value = "更改购物车中商品",notes = "更改购物车中商品")
+    Map<String,Object> changeCartGoodId(int cartItemId, int goodsId){
+        return cartItemService.changeCartGoodId(cartItemId,goodsId);
+    }
 }

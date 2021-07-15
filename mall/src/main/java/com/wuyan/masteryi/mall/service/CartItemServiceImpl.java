@@ -1,12 +1,14 @@
 package com.wuyan.masteryi.mall.service;
 
 import com.wuyan.masteryi.mall.entity.CartItem;
+import com.wuyan.masteryi.mall.entity.SingleCartItem;
 import com.wuyan.masteryi.mall.mapper.CartItemMapper;
 import com.wuyan.masteryi.mall.utils.ResponseMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,6 +22,8 @@ public class CartItemServiceImpl implements CartItemService{
 
     @Autowired
     CartItemMapper cartItemMapper;
+    @Autowired
+    GoodsService goodsService;
 
     @Override
     public Map<String,Object> addCartItem(Integer userId, Integer goodsId, Integer goodsNum) {
@@ -63,6 +67,19 @@ public class CartItemServiceImpl implements CartItemService{
 
     @Override
     public Map<String, Object> showMyCart(Integer userId) {
-        return ResponseMsg.sendMsg(200, "成功查询购物车", cartItemMapper.showMyCart(userId));
+        List<SingleCartItem> singleCartItems = cartItemMapper.showMyCart(userId);
+        for(SingleCartItem singleCartItem:singleCartItems){
+            singleCartItem.setSpecs((Map<String, String>) goodsService.getSpecsDesc(singleCartItem.getId()).get("data"));
+        }
+        return ResponseMsg.sendMsg(200, "成功查询购物车", singleCartItems);
+    }
+
+    @Override
+    public Map<String, Object> changeCartGoodId(int cartItemId, int goodsId) {
+        int user_id=1;
+        if(cartItemMapper.getItemByUserGood(user_id, goodsId)==null) return ResponseMsg.sendMsg(200,"更改成功",cartItemMapper.changeCartGoodId(cartItemId,goodsId));
+        else {
+            return ResponseMsg.sendMsg(100,"该商品已存在购物车中",null);
+        }
     }
 }

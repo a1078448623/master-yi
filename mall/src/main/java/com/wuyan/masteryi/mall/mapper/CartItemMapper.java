@@ -1,5 +1,6 @@
 package com.wuyan.masteryi.mall.mapper;
 
+import com.wuyan.masteryi.mall.entity.CartItem;
 import com.wuyan.masteryi.mall.entity.SingleCartItem;
 import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
@@ -25,4 +26,6 @@ public interface CartItemMapper {
     Integer isInCart(Integer userId, Integer goodsId);
     Integer addNum(Integer cartItemId, Integer num);
     List<SingleCartItem> showMyCart(Integer userId);
+    int changeCartGoodId(int cartItemId,int goodsId);
+    CartItem getItemByUserGood(int userId,int goodId);
 }
