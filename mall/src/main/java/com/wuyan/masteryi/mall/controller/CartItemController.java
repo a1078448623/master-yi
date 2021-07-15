@@ -5,10 +5,7 @@ import com.wuyan.masteryi.mall.service.GetUidServerImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -31,8 +28,7 @@ public class CartItemController {
 
     @ApiOperation(value="添加商品到购物车", notes="添加商品到购物车")
     @PostMapping("/addcartitem")
-    public Map<String,Object> addCartItem(@CookieValue(value = "token",
-            defaultValue = "Atta") String token, Integer goodsId, Integer goodsNum){
+    public Map<String,Object> addCartItem(@RequestHeader("token")String token, Integer goodsId, Integer goodsNum){
         return cartItemService.addCartItem(getUidServer.getIntegerUid(token), goodsId, goodsNum);
     }
 
@@ -44,8 +40,7 @@ public class CartItemController {
 
     @ApiOperation(value="删除购物车中全部项", notes="删除购物车中全部项")
     @PostMapping("/deleteallcartitem")
-    public Map<String,Object> deleteAllCartItem(@CookieValue(value = "token",
-            defaultValue = "Atta") String token){
+    public Map<String,Object> deleteAllCartItem(@RequestHeader("token")String token){
         return cartItemService.deleteAllCartItem(getUidServer.getIntegerUid(token));
     }
 
@@ -69,8 +64,8 @@ public class CartItemController {
 
     @ApiOperation(value="查看购物车", notes="查看购物车")
     @PostMapping("/showmycart")
-    public Map<String,Object> showMyCart(@CookieValue(value = "token",
-            defaultValue = "Atta") String token){
+    public Map<String,Object> showMyCart(@RequestHeader("token")String token){
+        System.out.println(token);
         return cartItemService.showMyCart(getUidServer.getIntegerUid(token));
     }
 

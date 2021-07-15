@@ -5,10 +5,7 @@ import com.wuyan.masteryi.mall.service.ImageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
@@ -32,8 +29,7 @@ public class ImageController {
 
     @PostMapping("/upload")
     @ApiOperation(value = "上传图片",notes = "上传图片")
-    public Map<String,Object> saveImage(MultipartFile file,@CookieValue(value = "token",
-            defaultValue = "Atta") String token){
+    public Map<String,Object> saveImage(MultipartFile file,@RequestHeader("token")String token){
         return imageService.saveImage(file,getUidServer.getintUid(token));
     }
 }

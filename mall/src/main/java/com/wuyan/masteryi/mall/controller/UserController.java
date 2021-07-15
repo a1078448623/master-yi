@@ -43,22 +43,19 @@ public class UserController {
 
     @PostMapping("/setAddr")
     @ApiOperation(value = "设置地址",notes = "设置地址")
-    public Map<String, Object> setAddr(@CookieValue(value = "token",
-            defaultValue = "Atta") String token, String address){
+    public Map<String, Object> setAddr(@RequestHeader("token")String token, String address){
         return userService.setAddr(getUid.getintUid(token),address);
     }
 
     @PostMapping("/setPhone")
     @ApiOperation(value = "设置手机号",notes = "设置手机号")
-    public Map<String, Object> setPhoneNum(@CookieValue(value = "token",
-            defaultValue = "Atta") String token, String phoneNum) {
+    public Map<String, Object> setPhoneNum(@RequestHeader("token")String token, String phoneNum) {
         return userService.setPhoneNum(getUid.getintUid(token),phoneNum);
     }
 
     @PostMapping("/setImg")
     @ApiOperation(value = "设置头像",notes = "设置头像")
-    public Map<String, Object> setImg(@CookieValue(value = "token",
-                                        defaultValue = "Atta") String token, String imgurl){
+    public Map<String, Object> setImg(@RequestHeader("token")String token, String imgurl){
 
         return userService.setImg(getUid.getintUid(token),imgurl);
     }
@@ -76,15 +73,13 @@ public class UserController {
 
     @PostMapping("/getuser")
     @ApiOperation(value = "获取用户信息",notes = "获取用户信息")
-    public Map<String, Object> getUser(@CookieValue(value = "token",
-            defaultValue = "Atta") String token){
+    public Map<String, Object> getUser(@RequestHeader("token")String token){
         return userService.getUser(getUidServer.getIntegerUid(token));
     }
 
     @PostMapping("/changeuserinfo")
     @ApiOperation(value = "获取用户信息",notes = "获取用户信息")
-    public Map<String, Object> changeUserInfo(@CookieValue(value = "token",
-            defaultValue = "Atta") String token,String userName,String userPwd,String phoneNum,String userAddress, String userImgUrl){
+    public Map<String, Object> changeUserInfo(@RequestHeader("token")String token,String userName,String userPwd,String phoneNum,String userAddress, String userImgUrl){
         return userService.changeUserInfo(getUidServer.getIntegerUid(token),userName,userPwd,phoneNum,userAddress,userImgUrl);
     }
 }

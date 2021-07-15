@@ -11,10 +11,7 @@ import com.wuyan.masteryi.mall.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -33,15 +30,13 @@ public class OrderController {
     @ApiOperation(value = "创建订单",notes = "根据所给所有商品和价格等信息创建订单")
     public Map<String,Object> creatOrder(int[] goods, int [] num,float[] singlePrice, int status,
                                          float price, String address,
-                                         @CookieValue(value = "token",
-                                                 defaultValue = "Atta") String token){
+                                         @RequestHeader("token")String token){
         return orderService.creatOrder(goods,num,singlePrice,getUid.getintUid(token),status,price,address);
     }
 
     @ApiOperation(value = "根据用户获取订单",notes = "根据所给的用户id来获取该用户的所有订单")
     @PostMapping("/getOrderByuid")
-    public Map<String,Object>getOrdersByUID(@CookieValue(value = "token",
-            defaultValue = "Atta") String token){
+    public Map<String,Object>getOrdersByUID(@RequestHeader("token")String token){
         return orderService.getOrdersByUID(getUid.getintUid(token));
     }
 

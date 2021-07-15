@@ -23,8 +23,7 @@ public class SecKillController {
     @GetMapping("/comfirm")
     @ResponseBody
     @ApiOperation(value = "秒杀测试",notes = "秒杀测试")
-    public Map<String, Object> secKill (@CookieValue(value = "token",
-            defaultValue = "Atta") String token, String prodid){
+    public Map<String, Object> secKill (@RequestHeader("token")String token, String prodid){
         return  secKillService.doSecKill(getUidServer.getStringUid(token), prodid);
 
     }

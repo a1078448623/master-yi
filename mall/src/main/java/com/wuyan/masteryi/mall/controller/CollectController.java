@@ -5,10 +5,7 @@ import com.wuyan.masteryi.mall.service.GetUidServerImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -31,8 +28,7 @@ public class CollectController {
 
     @ApiOperation(value="添加到收藏夹", notes="添加到收藏夹")
     @PostMapping("/addtocollect")
-    public Map<String, Object> addToCollect(@CookieValue(value = "token",
-            defaultValue = "Atta") String token, Integer goodsId){
+    public Map<String, Object> addToCollect(@RequestHeader("token")String token, Integer goodsId){
         return collectService.addToCollect(getUidServer.getIntegerUid(token), goodsId);
     }
 
@@ -44,15 +40,13 @@ public class CollectController {
 
     @ApiOperation(value="获取收藏夹", notes="获取收藏夹")
     @PostMapping("/showmycollect")
-    public Map<String, Object> showMyCollect(@CookieValue(value = "token",
-            defaultValue = "Atta") String token){
+    public Map<String, Object> showMyCollect(@RequestHeader("token")String token){
         return collectService.showMyCollect(getUidServer.getIntegerUid(token));
     }
 
     @ApiOperation(value="获取收藏状态", notes="获取收藏状态")
     @PostMapping("/iscollect")
-    public Map<String, Object> isCollect(@CookieValue(value = "token",
-            defaultValue = "Atta") String token,Integer specId){
+    public Map<String, Object> isCollect(@RequestHeader("token")String token,Integer specId){
         return collectService.isCollect(getUidServer.getintUid(token),specId);
     }
 }

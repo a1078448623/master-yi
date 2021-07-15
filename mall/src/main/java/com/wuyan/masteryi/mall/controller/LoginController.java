@@ -36,21 +36,23 @@ public class LoginController {
             hs.put("token",null);
             return objectMapper.writeValueAsString(hs);
         }
-        Cookie cookie1 = new Cookie("token","");
-        cookie1.setMaxAge(0); //设置立即删除
-        cookie1.setPath("/");
-        response.addCookie(cookie1);
+//        Cookie cookie1 = new Cookie("token","");
+//        cookie1.setMaxAge(0); //设置立即删除
+//        cookie1.setPath("/");
+//        response.addCookie(cookie1);
 
         //生成登录类
         LoginUser loginUser=new LoginUser();
         loginUser.setUserId(userService.getUserId(username));
         loginUser.setUserName(username);
         loginUser.setPassword(password);
+
         //生成token并封装
         String token= TokenUtil.sign(loginUser);
 
         // 创建一个 cookie对象
         Cookie cookie = new Cookie("token", token);
+        cookie.setMaxAge(10*60*60*1000);
         String contextPath  = request.getContextPath();
         if(contextPath.trim().equals("")){
             contextPath = "/";
@@ -58,6 +60,7 @@ public class LoginController {
         cookie.setPath(contextPath);
         //将cookie对象加入response响应
         response.addCookie(cookie);
+
         System.out.println("登录通过");
         hs.put("token",token);
         return objectMapper.writeValueAsString(hs);
@@ -67,8 +70,7 @@ public class LoginController {
     @PostMapping("/token")
     @ResponseBody
     @ApiOperation(value = "token测试",notes = "token测试")
-    public boolean token(@CookieValue(value = "token",
-                        defaultValue = "Atta") String token) throws JsonProcessingException {
+    public boolean token(@RequestHeader("token")String token) throws JsonProcessingException {
         System.out.println(token);
         if(TokenUtil.verify(token)) return true;
         else return false;

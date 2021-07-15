@@ -11,10 +11,7 @@ import com.wuyan.masteryi.mall.service.GetUidServerImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -42,14 +39,12 @@ public class CommentController {
     }
     @PostMapping("/addcomment")
     @ApiOperation(value = "添加评论",notes = "添加评论")
-    Map<String,Object> addComment(int goodId,@CookieValue(value = "token",
-            defaultValue = "Atta") String token,String content,int stars,int orderId){
+    Map<String,Object> addComment(int goodId,@RequestHeader("token")String token,String content,int stars,int orderId){
         return commentService.addComment(goodId,getUidServer.getintUid(token),content,stars,orderId);
     }
     @PostMapping("/addreply")
     @ApiOperation(value = "添加回复",notes = "添加回复")
-    Map<String,Object> addReply(int goodId,@CookieValue(value = "token",
-            defaultValue = "Atta") String token,String content,int toComId){
+    Map<String,Object> addReply(int goodId, @RequestHeader("token")String token, String content, int toComId){
         return commentService.addReply(goodId,getUidServer.getintUid(token),content,toComId);
     }
 }
