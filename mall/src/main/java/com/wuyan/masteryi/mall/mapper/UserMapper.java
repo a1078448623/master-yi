@@ -25,4 +25,5 @@ public interface UserMapper {
     String getUserId(String username);
     User getUser(Integer userId);
     void changeUserInfo(Integer userId,String userName,String userPwd,String phoneNum,String userAddress, String userImgUrl);
+    void chengImgUrl(String url,int u_id);
 }

@@ -19,4 +19,5 @@ public interface CartItemService {
     Map<String,Object> goodsNumSub1(Integer cartItemId);
     Map<String,Object> goodsNumAdd1(Integer cartItemId);
     Map<String,Object> showMyCart(Integer userId);
+    Map<String,Object> changeCartGoodId(int cartItemId,int goodsId);
 }

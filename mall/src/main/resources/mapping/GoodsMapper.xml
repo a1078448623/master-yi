@@ -79,4 +79,7 @@
         group by goods.goods_id,sell_num
         order by sell_num desc
     </select>
+    <select id="getAllSpecs" resultType="GoodSpecs">
+        select * from goods_specs where goods_id = #{goodsId}
+    </select>
 </mapper>

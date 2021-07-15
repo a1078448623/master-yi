@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.lang.ref.PhantomReference;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * @Author: Zhao Shuqing
@@ -20,7 +21,7 @@ public class SingleCartItem {
     private String goodsInformation;
     private String goodsCoverUrl;
     private int id;//规格id
-    private String specs;
+    private Map<String,String> specs;
     private float price;
     private Date addTime;
 }

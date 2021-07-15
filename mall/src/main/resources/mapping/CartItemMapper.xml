@@ -18,7 +18,7 @@
     </delete>
 
     <update id="changeGoodsNumById">
-        update cartitem set goods_num = #{goodsNum} where cart_item_id = #{cartItemId}
+        update cartitem set goods_num = #{newGoodsNum} where cart_item_id = #{cartItemId}
     </update>
 
     <update id="goodsNumSub1">
@@ -34,8 +34,18 @@
     </update>
 
     <select id="showMyCart" resultType="SingleCartItem">
-        select cart_item_id,goods_num,goods.goods_id,goods_name,goods_information,goods_cover_url,id,specs,price,add_time
+        select cart_item_id,goods_num,goods.goods_id,goods_name,goods_information,goods_cover_url,id,price,add_time
         from goods,goods_specs,cartitem
         where goods.goods_id = goods_specs.goods_id and cartitem.goods_id = goods_specs.id and cartitem.user_id = #{userId}
     </select>
+    <update id="changeCartGoodId">
+        update cartitem set goods_id=#{goodsId} where cart_item_id=#{cartItemId}
+    </update>
+    <select id="getItemByUserGood" resultType="CartItem">
+        select *
+        from cartitem where user_id=#{userId} and goods_id=#{goodId};
+    </select>
+    <update id="mergeCart">
+
+    </update>
 </mapper>

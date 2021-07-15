@@ -13,6 +13,7 @@ import com.wuyan.masteryi.mall.utils.ResponseMsg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -87,5 +88,12 @@ public class GoodsController {
     @ApiOperation(value = "搜索某分类下商品",notes = "搜索某分类下商品")
     Map<String,Object> searchGoodsCategory(String searchName, int categoryId){
         return goodsService.searchGoodsCategory(searchName,categoryId);
+    }
+
+    @ApiOperation(value="获取该商品全部属性", notes="获取该商品全部属性")
+    @PostMapping("/getallgoodspecs")
+    @Transactional
+    public Map<String, Object> getAllSpecs(Integer []goods_id) {
+        return goodsService.getAllSpecs(goods_id);
     }
 }

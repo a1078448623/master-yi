@@ -41,4 +41,8 @@
     <select id="getAddr" resultType="String">
         select address from user where user_id=#{u_id}
     </select>
+
+    <update id="chengImgUrl">
+        update user set user_img_url=#{url} where user_id=#{u_id}
+    </update>
 </mapper>
