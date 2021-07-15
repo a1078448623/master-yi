@@ -68,8 +68,6 @@ public class SecKillServiceImpl implements SecKillService{
 
         HostAndPort hostAndPort = new HostAndPort("49.232.159.181", 6379);
         JedisCluster jedisCluster = new JedisCluster(hostAndPort);
-        System.out.println(JedisClusterCRC16.getSlot("{sk}:5:st"));
-        System.out.println(JedisClusterCRC16.getSlot("{sk}:5:usr"));
 
 //        String sha1=  jedis.scriptLoad(secKillScript);
 //        Object result= jedis.evalsha(sha1, 2, uid,prodid);
@@ -78,7 +76,7 @@ public class SecKillServiceImpl implements SecKillService{
 //        Object result= jedisCluster.evalsha(sha1, 2, uid,prodid);
         String kcKey = "{sk}:"+prodid+":st";
         System.out.println(kcKey);
-        String userKey = "{sk}:"+uid+":usr";
+        String userKey = "{sk}:"+prodid+":usr";
         Object result = jedisCluster.eval(secKillScript,2,kcKey,userKey);
 
         String reString=String.valueOf(result);
@@ -90,7 +88,8 @@ public class SecKillServiceImpl implements SecKillService{
             int[] goods = {Integer.parseInt(prodid)};
             int[] num = {1};
             float[] price = {skGoodsMapper.getPrice(prodid)};
-            String address = userMapper.getAddr(Integer.parseInt(prodid));
+            String address = userMapper.getAddr(Integer.parseInt(uid));
+            System.out.println(address);
 
             //创建订单
             orderService.creatOrder(goods, num, price, Integer.parseInt(uid),1, price[0], address);
@@ -105,6 +104,7 @@ public class SecKillServiceImpl implements SecKillService{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return ResponseMsg.sendMsg(200,"设置成功",result);
 
     }

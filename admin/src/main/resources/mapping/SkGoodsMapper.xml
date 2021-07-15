@@ -6,7 +6,7 @@
     </insert>
 
     <delete id="deleteSkGoods">
-        delete from skgoods where goodsId = #{goodsId}
+        delete from skgoods where goods_id = #{goodsId}
     </delete>
 
 

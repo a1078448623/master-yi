@@ -43,7 +43,7 @@ public class SecKillServiceImpl implements SecKillService {
             jedisCluster.set(kcKey, String.valueOf(stock[i]));
             System.out.println(jedisCluster.get(kcKey));
             jedisCluster.sadd("allSk", String.valueOf(prodId[i]));
-
+            String userKey = "{sk}:"+pid+":usr";
             Goods good = goodsMapper.getGoodById(prodId[i]);
 
             skGoodsMapper.setSkGoods(prodId[i]+"",good.getGoodsName(),good.getGoodsCoverUrl(), stock[i], price[i],
@@ -56,12 +56,17 @@ public class SecKillServiceImpl implements SecKillService {
 
     @Override
     public Map<String, Object> rmSkGoods(Integer prodId) {
-//        String kcKey = "sk:"+prodId+":st";
-//        String userKey = "sk:"+prodId+":usr";
+        String prodid = prodId + "";
+        HostAndPort hostAndPort = new HostAndPort("49.232.159.181", 6379);
+        JedisCluster jedisCluster = new JedisCluster(hostAndPort);
+        String kcKey = "{sk}:"+prodid+":st";
+        String userKey = "{sk}:"+prodid+":usr";
 ////        Long result1 = redisTemplate.boundSetOps("allSk").remove(prodId);
 ////        redisTemplate.delete(kcKey);
 ////        redisTemplate.delete(userKey);
-
+        jedisCluster.del(kcKey);
+        jedisCluster.del(userKey);
+        skGoodsMapper.deleteSkGoods(prodid);
         return ResponseMsg.sendMsg(200, "成功删除秒杀项目", skGoodsMapper.deleteSkGoods(prodId+""));
     }
 }

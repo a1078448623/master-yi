@@ -39,6 +39,6 @@
 
 
     <select id="getAddr" resultType="String">
-            select address from user where user_id=#{u_id}
+        select address from user where user_id=#{u_id}
     </select>
 </mapper>
