@@ -11,7 +11,7 @@
         update user set phone_num=#{phoneNum} where user_id=#{u_id}
     </update>
     <insert id="addUser">
-        insert into user values (null,#{username},#{password},default,default,default)
+        insert into user values (null,#{username},#{password},default,default,default,default,default)
 
     </insert>
     <update id="setImg">

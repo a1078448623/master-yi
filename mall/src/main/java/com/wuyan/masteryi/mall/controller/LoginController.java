@@ -49,7 +49,7 @@ public class LoginController {
 
         //生成token并封装
         String token= TokenUtil.sign(loginUser);
-
+        System.out.println(token);
         // 创建一个 cookie对象
         Cookie cookie = new Cookie("token", token);
         cookie.setMaxAge(10*60*60*1000);

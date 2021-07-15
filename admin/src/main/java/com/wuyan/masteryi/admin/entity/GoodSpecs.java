@@ -9,4 +9,5 @@ public class GoodSpecs {
     private String specs;
     private Integer stock;
     private float price;
+    private String specImg;
 }

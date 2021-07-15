@@ -32,4 +32,6 @@ public interface GoodsMapper {
     Map<String,Object> getStockPrice(int good_id, String specs);
     void changeSpecs(int id, String specs);
     SingleOrderItem getGoodBySpecsId(int id);
+    void changeGoodImg(String url,int goodId);
+    void changeSpecImg(String url,int id);
 }

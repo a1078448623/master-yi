@@ -29,7 +29,7 @@
     </insert>
 
     <insert id="addSpecs">
-        insert into goods_specs value(null,#{goodsId},#{specs},#{stock},#{price})
+        insert into goods_specs value(null,#{goodsId},#{specs},#{stock},#{price},default)
     </insert>
 
     <update id="changeStock">
@@ -78,4 +78,11 @@
     <select id="getPrice" resultType="float">
         select price from goods_specs where id=#{d}
     </select>
+    <update id="changeGoodImg">
+        update goods set goods_cover_url=#{url} where goods_id=#{goodId}
+    </update>
+
+    <update id="changeSpecImg">
+        update goods_specs set spec_img=#{url} where id=#{id}
+    </update>
 </mapper>

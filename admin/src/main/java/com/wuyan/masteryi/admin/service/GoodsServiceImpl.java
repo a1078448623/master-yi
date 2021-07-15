@@ -58,6 +58,7 @@ public class GoodsServiceImpl implements GoodsService {
                 perRes.put("specDetail", specDetail);
                 perRes.put("price", spec.getPrice());
                 perRes.put("stock", spec.getStock());
+                perRes.put("specImg",spec.getSpecImg());
                 res.add(perRes);
             }
             result.add(res);
