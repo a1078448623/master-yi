@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -60,12 +61,12 @@ public class ImageServiceImpl implements ImageService{
         if (!FileUtil.isFileAllowed(fileExt)) {
             return ResponseMsg.sendMsg(100,"图片格式不正确",null);
         }
-        String key = null;
+        String key = genRandomUrl();
         try {
             Response res = uploadManager.put(file.getBytes(), key, upToken);
             DefaultPutRet putRet = new Gson().fromJson(res.bodyString(), DefaultPutRet.class);
             String url=QINIU_IMAGE_DOMAIN+putRet.key;
-            userMapper.chengImgUrl(url,u_id);
+            userMapper.changImgUrl(url,u_id);
             return ResponseMsg.sendMsg(200,"上传成功",url);
         } catch (IOException e) {
             e.printStackTrace();
@@ -73,5 +74,15 @@ public class ImageServiceImpl implements ImageService{
 
         }
 
+    }
+
+    public String genRandomUrl(){
+        String pool="123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
+        Random random=new Random();
+        String res="" ;
+        for(int i =0;i<=31;i++){
+            res+=pool.charAt(random.nextInt(pool.length()));
+        }
+        return res;
     }
 }

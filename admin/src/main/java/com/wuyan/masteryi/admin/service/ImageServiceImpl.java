@@ -8,6 +8,7 @@ import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 import com.wuyan.masteryi.admin.mapper.GoodsMapper;
+import com.wuyan.masteryi.admin.mapper.UserMapper;
 import com.wuyan.masteryi.admin.utils.FileUtil;
 import com.wuyan.masteryi.admin.utils.ResponseMsg;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Random;
 
 /*
  *project:master-yi
@@ -43,6 +45,8 @@ public class ImageServiceImpl implements ImageService{
 
     @Autowired
     GoodsMapper goodsMapper;
+    @Autowired
+    UserMapper userMapper;
     @Override
     public Map<String,Object> saveImage(MultipartFile file,int goodId) {
 
@@ -57,7 +61,7 @@ public class ImageServiceImpl implements ImageService{
         if (!FileUtil.isFileAllowed(fileExt)) {
             return ResponseMsg.sendMsg(100,"图片格式不正确",null);
         }
-        String key = null;
+        String key = genRandomUrl();
         try {
             Response res = uploadManager.put(file.getBytes(), key, upToken);
             DefaultPutRet putRet = new Gson().fromJson(res.bodyString(), DefaultPutRet.class);
@@ -83,7 +87,7 @@ public class ImageServiceImpl implements ImageService{
         if (!FileUtil.isFileAllowed(fileExt)) {
             return ResponseMsg.sendMsg(100,"图片格式不正确",null);
         }
-        String key = null;
+        String key = genRandomUrl();
         try {
             Response res = uploadManager.put(file.getBytes(), key, upToken);
             DefaultPutRet putRet = new Gson().fromJson(res.bodyString(), DefaultPutRet.class);
@@ -95,5 +99,41 @@ public class ImageServiceImpl implements ImageService{
             return ResponseMsg.sendMsg(100,"上传失败",null);
 
         }
+    }
+
+    @Override
+    public Map<String, Object> changeUserImage(MultipartFile file, int userId) {
+        int dotPos = file.getOriginalFilename().lastIndexOf(".");
+        if (dotPos < 0) {
+            return ResponseMsg.sendMsg(100,"图片格式不正确",null);
+        }
+        String fileExt = file.getOriginalFilename().substring(dotPos + 1).toLowerCase();
+
+        if (!FileUtil.isFileAllowed(fileExt)) {
+            return ResponseMsg.sendMsg(100,"图片格式不正确",null);
+        }
+        String key = genRandomUrl();
+        try {
+            Response res = uploadManager.put(file.getBytes(), key, upToken);
+            DefaultPutRet putRet = new Gson().fromJson(res.bodyString(), DefaultPutRet.class);
+            String url=QINIU_IMAGE_DOMAIN+putRet.key;
+            userMapper.changImgUrl(url,userId);
+            return ResponseMsg.sendMsg(200,"上传成功",url);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseMsg.sendMsg(100,"上传失败",null);
+
+        }
+    }
+
+
+    public String genRandomUrl(){
+        String pool="123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
+        Random random=new Random();
+        String res="" ;
+        for(int i =0;i<=31;i++){
+            res+=pool.charAt(random.nextInt(pool.length()));
+        }
+        return res;
     }
 }

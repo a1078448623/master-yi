@@ -6,7 +6,7 @@
     </select>
 
     <insert id="addUser">
-        insert into user values (null,#{userName},#{userPwd},#{userImgUrl},#{address},#{phoneNum},default)
+        insert into user values (null,#{userName},#{userPwd},#{userImgUrl},#{address},#{phoneNum},default,default)
     </insert>
 
     <delete id="deleteUser">
@@ -19,4 +19,7 @@
         where user_id = #{user.userId}
     </update>
 
+    <update id="changImgUrl">
+        update user set user_img_url=#{url} where user_id=#{u_id}
+    </update>
 </mapper>

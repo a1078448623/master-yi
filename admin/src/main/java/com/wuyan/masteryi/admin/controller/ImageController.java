@@ -34,4 +34,10 @@ public class ImageController {
     public Map<String,Object> saveSpecImage(MultipartFile file,@PathVariable String id){
         return imageService.saveSpecImage(file,Integer.parseInt(id));
     }
+
+    @PostMapping("/upuserload/{userId}")
+    @ApiOperation(value = "上传特定规格图片",notes = "上传图片")
+    public Map<String,Object> changeUserImage(MultipartFile file,@PathVariable String userId){
+        return imageService.changeUserImage(file,Integer.parseInt(userId));
+    }
 }

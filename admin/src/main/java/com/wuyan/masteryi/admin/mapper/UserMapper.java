@@ -20,6 +20,7 @@ public interface UserMapper {
     int addUser(String userName, String userPwd, String userImgUrl, String address, String phoneNum);
     void deleteUser(Integer userId);
     int changeUser(@Param("user") User user);
+    void changImgUrl(String url,int u_id);
 }
 
 

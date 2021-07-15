@@ -14,4 +14,5 @@ public interface ImageService {
 
     Map<String,Object> saveImage(MultipartFile file,int goodId);
     Map<String,Object> saveSpecImage(MultipartFile file,int id);
+    Map<String,Object> changeUserImage(MultipartFile file,int userId);
 }
