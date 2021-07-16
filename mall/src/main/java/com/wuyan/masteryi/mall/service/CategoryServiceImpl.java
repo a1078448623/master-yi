@@ -48,6 +48,18 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public Map<String, Object> getCategoryNameById(Integer cid) {
+
+
         return ResponseMsg.sendMsg(200, "成功获取分类信息", categoryMapper.getCategoryNameById(cid));
+    }
+
+    @Override
+    public Map<String,Object> getBothName(int cid){
+        String name = categoryMapper.getCategoryNameById(cid);
+        String parentName = categoryMapper.getParentName(cid);
+        Map<String,String> map=new HashMap<>();
+        map.put("categoryName",name);
+        map.put("parentName",parentName);
+        return ResponseMsg.sendMsg(200,"查询成功",map);
     }
 }

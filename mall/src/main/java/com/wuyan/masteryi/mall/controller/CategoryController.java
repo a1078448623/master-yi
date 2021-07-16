@@ -35,4 +35,10 @@ public class CategoryController {
     public Map<String, Object> getCategoryNameById(Integer cid){
         return categoryService.getCategoryNameById(cid);
     }
+
+    @ApiOperation(value="获取父子分类", notes="获取分类")
+    @PostMapping("/getbothname")
+    public Map<String,Object> getBothName(int cid){
+        return categoryService.getBothName(cid);
+    }
 }

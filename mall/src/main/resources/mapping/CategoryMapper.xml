@@ -8,4 +8,7 @@
     <select id="getCategoryNameById" resultType="string">
         select category_name from category where category_id = #{cid}
     </select>
+    <select id="getParentName" resultType="java.lang.String">
+        select category_name from category where category_id=(select parent_category_id from category where category_id=#{cid})
+    </select>
 </mapper>

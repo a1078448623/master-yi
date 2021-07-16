@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Map<String, Object> getOrdersByUID(int u_id) {
 
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm;ss");
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm");
         List<Order> res=orderMapper.getOrdersByUID(u_id);
         if(res==null) return ResponseMsg.sendMsg(100,"该用户没有订单",null);
         else {

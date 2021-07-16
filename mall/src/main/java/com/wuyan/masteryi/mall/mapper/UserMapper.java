@@ -21,7 +21,7 @@ public interface UserMapper {
     void setImg(int u_id,String imgurl);
     User isNameRep(String username);
     User isPhoneRep(String phoneNum);
-    int addConsumption(int userId, float money);
+    int addUserConsumption(int userId, float money);
     String getUserId(String username);
     User getUser(Integer userId);
     void changeUserInfo(Integer userId,String userName,String userPwd,String phoneNum,String userAddress, String userImgUrl);

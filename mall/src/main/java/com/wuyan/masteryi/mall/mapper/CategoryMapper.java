@@ -18,4 +18,5 @@ import java.util.Map;
 public interface CategoryMapper {
     List<Category> getAllCategory();
     String getCategoryNameById(Integer cid);
+    String getParentName(int cid);
 }

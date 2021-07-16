@@ -120,7 +120,7 @@ public class TradeServiceImpl implements TradeService{
                     goodsMapper.addSell(item.getGoodsId(),item.getGoodsNum());
                 }
                 Order order = orderMapper.getOrdersByNo(params.get("out_trade_no"));
-                userMapper.addConsumption(order.getUserId(),order.getOrderTotalPrice());
+                userMapper.addUserConsumption(order.getUserId(),order.getOrderTotalPrice());
             }
         } catch (AlipayApiException e) {
             e.printStackTrace();

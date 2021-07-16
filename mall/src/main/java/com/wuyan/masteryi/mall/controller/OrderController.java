@@ -11,6 +11,7 @@ import com.wuyan.masteryi.mall.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -28,6 +29,7 @@ public class OrderController {
 
     @PostMapping("/creatOrder")
     @ApiOperation(value = "创建订单",notes = "根据所给所有商品和价格等信息创建订单")
+    @Transactional
     public Map<String,Object> creatOrder(int[] goods, int [] num,float[] singlePrice, int status,
                                          float price, String address,
                                          @RequestHeader("token")String token){
