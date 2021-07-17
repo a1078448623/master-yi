@@ -114,6 +114,7 @@ public class GoodsServiceImpl implements GoodsService {
         }
         if(goodsMapper.getStockPrice(goodsId,res)!=null) return ResponseMsg.sendMsg(100,"该规格商品已存在",null);
         else {
+            System.out.println(goodsId);
             goodsMapper.addSpecs(goodsId,res,stock,price);
             return ResponseMsg.sendMsg(200,"添加成功","ok");
         }

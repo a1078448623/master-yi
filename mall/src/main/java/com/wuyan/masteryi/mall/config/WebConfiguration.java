@@ -48,6 +48,11 @@
 //        excludePath.add("/goods/**");
 //        excludePath.add("/comment/comsbygoodid");
 //        excludePath.add("/comment/replysbycomid");
+//        excludePath.add("/seckill/getAllInfo");
+//        excludePath.add("/doc.html");
+//        excludePath.add("/webjars/**");
+//        excludePath.add("/swagger-resources/**");
+//        excludePath.add("/v3/**");
 //
 //        registry.addInterceptor(tokenInterceptor)
 //                .addPathPatterns("/**")
