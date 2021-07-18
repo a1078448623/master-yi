@@ -15,4 +15,6 @@ public interface UserService {
     Map<String,Object> addUser(String userName, String userPwd, String userImgUrl, String address, String phoneNum);
     Map<String,Object> deleteUser(Integer[] userId);
     Map<String,Object> changeUser(User user);
+    Map<String,Object> getUserByNP(String username, String password);
+    String getUserId(String username);
 }

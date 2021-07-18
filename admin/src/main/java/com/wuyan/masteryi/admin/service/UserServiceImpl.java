@@ -42,4 +42,16 @@ public class UserServiceImpl implements UserService {
     public Map<String, Object> changeUser(User user) {
         return ResponseMsg.sendMsg(200, "成功更改用户信息", userMapper.changeUser(user));
     }
+
+    @Override
+    public String getUserId(String username) {
+        return userMapper.getUserId(username);
+    }
+
+    @Override
+    public Map<String, Object> getUserByNP(String username, String password) {
+        User user= userMapper.getUserByNP(username,password);
+        if(user==null) return ResponseMsg.sendMsg(100,"用户名或密码错误",null);
+        else return ResponseMsg.sendMsg(200,"查询到用户",true);
+    }
 }

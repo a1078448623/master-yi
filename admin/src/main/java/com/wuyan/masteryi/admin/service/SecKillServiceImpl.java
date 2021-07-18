@@ -12,6 +12,7 @@ import redis.clients.jedis.JedisCluster;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class SecKillServiceImpl implements SecKillService {
         HostAndPort hostAndPort = new HostAndPort("49.232.159.181", 6379);
         JedisCluster jedisCluster = new JedisCluster(hostAndPort);
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         int data = 0;
 //        redisTemplate.opsForSet().add("allSk", prodId);//添加秒杀商品到秒杀商品库
@@ -45,9 +46,8 @@ public class SecKillServiceImpl implements SecKillService {
             jedisCluster.sadd("allSk", String.valueOf(prodId[i]));
             String userKey = "{sk}:"+pid+":usr";
             Goods good = goodsMapper.getGoodById(prodId[i]);
-
             skGoodsMapper.setSkGoods(prodId[i]+"",good.getGoodsName(),good.getGoodsCoverUrl(), stock[i], price[i],
-                    goodsMapper.getPrice(prodId[i]),formatter.format(Long.valueOf(bDate)), formatter.format(Long.valueOf(eDate)));
+                    goodsMapper.getPrice(prodId[i]), bDate, eDate);
             data ++;
         }
 

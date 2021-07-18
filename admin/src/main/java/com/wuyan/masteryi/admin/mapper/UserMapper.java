@@ -18,9 +18,12 @@ import java.util.List;
 public interface UserMapper {
     List<User> getAllUser();
     int addUser(String userName, String userPwd, String userImgUrl, String address, String phoneNum);
+    User getUserByNP(String username, String password);
     void deleteUser(Integer userId);
+    String getUserId(String username);
     int changeUser(@Param("user") User user);
     void changImgUrl(String url,int u_id);
+    String getPassword (String name);
 }
 
 

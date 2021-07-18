@@ -75,6 +75,7 @@
     <select id="getGoodById" resultType="Goods">
         select * from goods where goods_id=#{good_id}
     </select>
+
     <select id="getPrice" resultType="float">
         select price from goods_specs where id=#{d}
     </select>
@@ -85,4 +86,14 @@
     <update id="changeSpecImg">
         update goods_specs set spec_img=#{url} where id=#{id}
     </update>
+
+    <update id="changeSpecs">
+        update goods_specs set specs=#{specs} where id=#{id}
+    </update>
+    <select id="getGoodBySpecsId" resultType="com.wuyan.masteryi.admin.entity.SingleOrderItem">
+        select distinct goods.goods_id,goods_name,goods_information,goods_cover_url,id
+        from goods,goods_specs
+        where goods_specs.id=#{id} and
+            goods_specs.goods_id=goods.goods_id
+    </select>
 </mapper>

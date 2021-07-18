@@ -12,6 +12,6 @@ public class SkGoods {
     private int stock;
     private float newprice;
     private float oldprice;
-    private Date bDate;
-    private Date eDate;
+    private String bDate;
+    private String eDate;
 }

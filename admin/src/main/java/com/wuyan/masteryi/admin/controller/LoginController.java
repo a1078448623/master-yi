@@ -1,11 +1,10 @@
-package com.wuyan.masteryi.mall.controller;
+package com.wuyan.masteryi.admin.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wuyan.masteryi.mall.entity.LoginUser;
-import com.wuyan.masteryi.mall.mapper.UserMapper;
-import com.wuyan.masteryi.mall.service.UserService;
-import com.wuyan.masteryi.mall.utils.TokenUtil;
+import com.wuyan.masteryi.admin.entity.LoginUser;
+import com.wuyan.masteryi.admin.service.UserService;
+import com.wuyan.masteryi.admin.utils.TokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ import java.util.HashMap;
 @RequestMapping("/login")
 @Api(tags = "登录接口")
 public class LoginController {
-//    @Autowired
+    //    @Autowired
 //    UserMapper userMapper;
     @Autowired
     UserService userService;

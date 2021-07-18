@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @Api(tags="商品管理接口")
@@ -21,7 +23,12 @@ public class GoodsController {
 
     @ApiOperation(value="获取全部商品", notes="获取全部商品")
     @PostMapping("/getallgoods")
-    public Map<String, Object> getAllGoods(){ return goodsService.getAllGoods();}
+    public Map<String, Object> getAllGoods(HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "*");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        return goodsService.getAllGoods();}
 
     @ApiOperation(value="获取某父类下的商品", notes="获取某父类下的商品")
     @PostMapping("/getparentcategorygoods")
