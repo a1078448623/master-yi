@@ -1,6 +1,7 @@
 package com.wuyan.masteryi.admin.service;
 
 import com.wuyan.masteryi.admin.entity.Goods;
+import com.wuyan.masteryi.admin.entity.SingleOrderItem;
 import com.wuyan.masteryi.admin.mapper.GoodsMapper;
 import com.wuyan.masteryi.admin.mapper.SkGoodsMapper;
 import com.wuyan.masteryi.admin.utils.ResponseMsg;
@@ -27,6 +28,9 @@ public class SecKillServiceImpl implements SecKillService {
     @Autowired
     GoodsMapper goodsMapper;
 
+    @Autowired
+    GoodsService goodsService;
+
     @Override
     public Map<String, Object> addSkGoods(int[] prodId, int[] stock, int[] price, String bDate, String eDate) {
         HostAndPort hostAndPort = new HostAndPort("49.232.159.181", 6379);
@@ -45,10 +49,9 @@ public class SecKillServiceImpl implements SecKillService {
             System.out.println(jedisCluster.get(kcKey));
             jedisCluster.sadd("allSk", String.valueOf(prodId[i]));
             String userKey = "{sk}:"+pid+":usr";
-            Goods good = goodsMapper.getGoodById(prodId[i]);
+            Goods good = goodsMapper.getGoodById(((SingleOrderItem)goodsService.getGoodBySpecsId(prodId[i]).get("data")).getGoodsId());
             skGoodsMapper.setSkGoods(prodId[i]+"",good.getGoodsName(),good.getGoodsCoverUrl(), stock[i], price[i],
                     goodsMapper.getPrice(prodId[i]), bDate, eDate);
-            data ++;
         }
 
         return ResponseMsg.sendMsg(200, "成功创建秒杀项目", data);

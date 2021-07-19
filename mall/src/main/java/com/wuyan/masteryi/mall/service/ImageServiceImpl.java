@@ -33,6 +33,9 @@ public class ImageServiceImpl implements ImageService{
     @Autowired
     UserMapper userMapper;
 
+    @Autowired
+    UserService userService;
+
     @Override
     public Map<String,Object> saveImage(MultipartFile file,int u_id) {
 
@@ -66,6 +69,10 @@ public class ImageServiceImpl implements ImageService{
             Response res = uploadManager.put(file.getBytes(), key, upToken);
             DefaultPutRet putRet = new Gson().fromJson(res.bodyString(), DefaultPutRet.class);
             String url=QINIU_IMAGE_DOMAIN+putRet.key;
+            System.out.println(url);
+            System.out.println(u_id);
+            userService.setImg(u_id,url);
+            userMapper.setImg(u_id,url);
             userMapper.changImgUrl(url,u_id);
             return ResponseMsg.sendMsg(200,"上传成功",url);
         } catch (IOException e) {

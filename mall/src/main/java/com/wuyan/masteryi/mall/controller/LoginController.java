@@ -3,6 +3,7 @@ package com.wuyan.masteryi.mall.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wuyan.masteryi.mall.entity.LoginUser;
+import com.wuyan.masteryi.mall.entity.User;
 import com.wuyan.masteryi.mall.mapper.UserMapper;
 import com.wuyan.masteryi.mall.service.UserService;
 import com.wuyan.masteryi.mall.utils.TokenUtil;
@@ -25,6 +26,9 @@ public class LoginController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserMapper userMapper;
+
     @PostMapping("/comfirm")
     @ResponseBody
     @ApiOperation(value = "登录测试",notes = "登录测试")
@@ -43,6 +47,37 @@ public class LoginController {
 
         //生成登录类
         LoginUser loginUser=new LoginUser();
+        if(null == userService.getUserId(username)){
+            Cookie cookie = new Cookie("token", "");
+            cookie.setMaxAge(0);
+            String contextPath  = request.getContextPath();
+            if(contextPath.trim().equals("")){
+                contextPath = "/";
+            }
+            cookie.setPath(contextPath);
+            //将cookie对象加入response响应
+            response.addCookie(cookie);
+            System.out.println("账号不存在");
+            hs.put("token","");
+            return objectMapper.writeValueAsString(hs);
+        }
+
+        if(!password.equals(userMapper.getPwd(username))){
+            Cookie cookie = new Cookie("token", "");
+            cookie.setMaxAge(0);
+            String contextPath  = request.getContextPath();
+            if(contextPath.trim().equals("")){
+                contextPath = "/";
+            }
+            cookie.setPath(contextPath);
+            //将cookie对象加入response响应
+            response.addCookie(cookie);
+            System.out.println("密码不一致");
+            hs.put("token","");
+            return objectMapper.writeValueAsString(hs);
+        }
+
+
         loginUser.setUserId(userService.getUserId(username));
         loginUser.setUserName(username);
         loginUser.setPassword(password);

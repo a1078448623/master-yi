@@ -20,7 +20,7 @@ public class SecKillController {
     @Autowired
     GetUidServerImpl getUidServer;
 
-    @GetMapping("/comfirm")
+    @PostMapping("/comfirm")
     @ResponseBody
     @ApiOperation(value = "秒杀测试",notes = "秒杀测试")
     public Map<String, Object> secKill (@RequestHeader("token")String token, String prodid){

@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Map<String, Object> getOrdersByUID(int u_id) {
 
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
         List<Order> res=orderMapper.getOrdersByUID(u_id);
         if(res==null) return ResponseMsg.sendMsg(100,"该用户没有订单",null);
         else {
@@ -46,7 +46,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Map<String, Object> getOrdersById(int order_id) {
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm;ss");
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm;ss");
         Order order=orderMapper.getOrdersById(order_id);
         if(order==null) return ResponseMsg.sendMsg(100,"查询失败",null);
         else {
@@ -81,7 +81,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public String orderNoGen() {
         Date date=new Date();
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddhh");
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHH");
         Random r=new Random();
         return sdf.format(date)+r.nextInt(900000)+100000+String.valueOf(date.getTime()).substring(5);
     }

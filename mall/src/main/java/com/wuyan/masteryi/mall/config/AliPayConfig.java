@@ -14,8 +14,8 @@ public class AliPayConfig {
     public static String charset="utf-8";
     public static String AliPayPublicKey="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsphueO7CkNHgPfoWbrJSbNLh5xY//fSzhMKkQPd3pL9JfrhAIIibG5PxEJ59denoaZ9/miaEObkAj76RDnWxLeAtXKPZ1/V/IWQew+PI5hCUVP7VUKC0vTWugA6kCyZ05C+Td2HPJXcBjMyZ8ngJnhMgf3PWISyxyfuZuuq+AvSZl/sVmR7hGosZKgUimDw/z1WNqvatA9JS1vLZS9IIalZTTyZPHf1ZolAsbX9fPfxuVQPtBFs3AeXdlDupSBKgNMjcsCFa9K0orl/5xqUOTEoS5MR6FHG7tHP7xoFZPWai7mxh2yGgAUakquQmIXliN9kPAGcflnh2v5H7Oa3lOQIDAQAB";
     public static String signType="RSA2";
-    public static String returnURL="http://localhost:8080/tradesuccess";
-    public static String notifyURL="http://ck5h8u.natappfree.cc/trade/payCallback";
+    public static String returnURL="http://123.60.213.90:4396/tradesuccess";
+    public static String notifyURL="http://123.60.213.90:22221/trade/payCallback";
     //1 表示订单已创建但还未支付
     //2 表示订单已支付，正在运输中
     //3 表示运输完成，订单完成

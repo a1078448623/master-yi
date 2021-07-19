@@ -78,7 +78,6 @@
     <select id="getGoodById" resultType="Goods">
         select * from goods where goods_id=#{good_id}
     </select>
-
     <select id="getPrice" resultType="float">
         select price from goods_specs where id=#{d}
     </select>

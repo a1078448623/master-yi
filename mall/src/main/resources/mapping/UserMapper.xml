@@ -33,6 +33,12 @@
         select * from user where user_id = #{userId}
     </select>
 
+    <select id="getPwd" resultType="String">
+        select user_pwd from user where user_name=#{username}
+    </select>
+
+
+
     <update id="changeUserInfo">
         update user set user_name=#{userName},user_pwd=#{userPwd},phone_num=#{phoneNum},address=#{userAddress},user_img_url=#{userImgUrl} where user_id=#{userId}
     </update>

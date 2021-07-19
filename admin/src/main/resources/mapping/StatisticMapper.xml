@@ -33,7 +33,7 @@
     </select>
     <select id="getUserCount" resultType="UserCateCount">
         SELECT DATE_FORMAT(register_time,'%Y-%m-%d') AS time,COUNT(*) AS count
-        FROM USER
+        FROM user
         WHERE DATE(register_time)>DATE_SUB(CURDATE(), INTERVAL 7 DAY)
         GROUP BY time
         ORDER BY time

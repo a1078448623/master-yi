@@ -76,12 +76,17 @@ public class SecKillServiceImpl implements SecKillService{
 //        Object result= jedisCluster.evalsha(sha1, 2, uid,prodid);
         String kcKey = "{sk}:"+prodid+":st";
         System.out.println(kcKey);
-        String userKey = "{sk}:"+prodid+":usr";
+        String userKey = "{sk}:"+uid+":usr";
         Object result = jedisCluster.eval(secKillScript,2,kcKey,userKey);
 
         String reString=String.valueOf(result);
+        try {
+            jedisCluster.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if ("0".equals( reString )  ) {
-            System.err.println("已抢空！！");
+            return ResponseMsg.sendMsg(99,"aa","已抢空");
         }else if("1".equals( reString )  )  {
             System.out.println("抢购成功！！！！");
 
@@ -92,20 +97,14 @@ public class SecKillServiceImpl implements SecKillService{
             System.out.println(address);
 
             //创建订单
-            orderService.creatOrder(goods, num, price, Integer.parseInt(uid),1, price[0], address);
+            Map<String, Object> stringObjectMap = orderService.creatOrder(goods, num, price, Integer.parseInt(uid), 1, price[0], address);
+            return ResponseMsg.sendMsg(200,"ok",stringObjectMap.get("data"));
 
         }else if("2".equals( reString )  )  {
-            System.err.println("该用户已抢过！！");
+            return ResponseMsg.sendMsg(100,"aa","已抢购");
         }else{
-            System.err.println("抢购异常！！");
+            return ResponseMsg.sendMsg(101,"aa","抢购异常");
         }
-        try {
-            jedisCluster.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return ResponseMsg.sendMsg(200,"设置成功",result);
 
     }
 
